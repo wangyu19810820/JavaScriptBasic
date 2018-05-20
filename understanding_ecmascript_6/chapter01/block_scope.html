@@ -1,0 +1,44 @@
+<!--
+    var声明的变量，会被提升（hoisting），在函数开头定义，在代码处初始化
+    let声明的变量，在代码处定义，在块(花括号内{})中有效
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function getValue(condition) {
+            if (condition) {
+                var value = "blue";
+                console.log("a:" + value);
+            } else {
+                // 看似value在上一个分支中被定义的，其实是在函数开头被定义了，只是未被初始化而已
+                console.log("b:" + value);
+            }
+            console.log("c:" + value);
+            console.log("d:" + value1);
+        }
+
+        function getValue1(condition) {
+            if (condition) {
+                let value = "blue";
+                console.log("a:" + value);
+            } else {
+                // 报错：Uncaught ReferenceError: value is not defined
+                console.log("b:" + value);
+            }
+            // 报错：Uncaught ReferenceError: value is not defined
+            console.log("c:" + value);
+        }
+
+        // getValue(false);
+        getValue1(true);
+    </script>
+</body>
+</html>

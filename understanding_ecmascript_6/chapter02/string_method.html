@@ -1,0 +1,31 @@
+<!--
+    include是否包含某些字符
+    startsWith是否以某些字符开始
+    endsWith是否以某些字符结束
+    repeat重复某些字符
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        var str = "abcdefghijklmn";
+        console.log(str.includes("abc"));
+        console.log(str.startsWith("abc"));
+        console.log(str.endsWith("lmn"));
+
+        console.log(str.includes("abc", 1));
+        console.log(str.startsWith("bcd", 1));
+        console.log(str.endsWith("b", 2));  // 索引2之后的字符都舍弃，只剩ab
+
+        console.log("abc".repeat(4));
+    </script>
+</body>
+</html>

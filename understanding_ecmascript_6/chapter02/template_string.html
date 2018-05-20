@@ -1,0 +1,35 @@
+<!--
+    模板字面量(Template Literals)
+    用反引号包裹的字符串，可用${...}做占位符。占位符内可以是变量，也可以是表达式。
+    也支持多行字符串，需注意空格
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let price = 0.25;
+        let count = 10;
+        let name = "JavaScript";
+        let message = `Hello world ${name}, total:${price * count}`;
+        console.log(message);
+        console.log(message.length);
+
+        let html = `
+<div>
+    <h1>Title</h1>
+</div>`;
+        console.log(html);
+
+        let message1 = `Multiple\nString`;
+        console.log(message1);
+
+    </script>
+</body>
+</html>

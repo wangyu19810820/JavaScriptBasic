@@ -1,0 +1,44 @@
+<!--
+    es6之前的正则表达式，只支持utf-16的基本多文种平面（BMP）
+    当匹配内容包含辅助平面字符（码位在2的16次方之外），就会错
+    在正则中添加修饰符/u，就能支持辅助平面字符（或者说全部unicode字符）
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 正则操作添加/u，启用对unicode辅助平面字符的支持
+        let values = '𠮷';
+        console.log(/^.$/.test('吉'));
+        console.log(/^.$/.test(values));
+        console.log(/^.$/u.test(values));
+        
+        // unicode字符串长度
+        function unicodeLength(str) {
+            // 匹配空白和非空白unicode字符
+            var result = str.match(/[\s\S]/gu);
+            // result是一个数组包含各个unicode字符
+            return result.length;
+        }
+        console.log(unicodeLength('𠮷吉'));
+
+        // 检测浏览器是否支持正则操作的/u选项
+        function hasRegExpU() {
+            try {
+                var pattern = new RegExp(".", "u");
+                return true;
+            } catch (ex) {
+                return false;
+            }
+        }
+        console.log(hasRegExpU());
+    </script>
+</body>
+</html>

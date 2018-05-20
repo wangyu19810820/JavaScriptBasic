@@ -1,0 +1,35 @@
+<!--
+    同一个块作用域内的变量，如果用let声明，不允许出现重名
+    不同块作用域内的变量，即便用let声明，也可以重名，只是会被遮盖
+    这一点，和其它语言更类似了
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function fun1() {
+            var count = 40;
+            let count = 40;
+        }
+
+        function fun2(condition) {
+            // var count = 40;
+            let count = 40;
+            if (condition) {
+                let count = 50;
+                console.log(count);
+            }
+            console.log(count);
+        }
+        // fun1();
+        fun2(true);
+    </script>
+</body>
+</html>

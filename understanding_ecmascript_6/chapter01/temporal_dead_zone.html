@@ -1,0 +1,28 @@
+<!--
+    在块级作用域内，let声明变量之前，该变量完全无法被访问，甚至连类型检查typeof也不行
+    const和let类似，也不能被访问。var声明的变量就可以，只是其值是undefined。
+    这种特点被俗称为临时死区，temporal dead zone
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function fun1(con1) {
+            if (con1) {
+                console.log(typeof(value));
+                let value = 1;
+                // const value = 1;
+                // var value = 1;
+            }
+        }
+        fun1(true);
+    </script>
+</body>
+</html>

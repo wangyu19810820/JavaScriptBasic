@@ -1,0 +1,29 @@
+<!--
+    const常量可以应用在for-in循环内
+    或者在for循环内，但是不能修改值
+    如果修改值，比如++操作，就会报错
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        for (const i in {a: "aa", b:"bb", c:"cc"}) {
+            console.log(i);
+        }
+        for (const j = 0; j < 3; ) {
+            console.log(j);
+            break;
+        }
+        for (const k = 0; k < 3; k++) {
+            console.log(k);
+        }
+    </script>
+</body>
+</html>

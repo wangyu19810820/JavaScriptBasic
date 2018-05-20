@@ -1,0 +1,29 @@
+<!--
+    通过RegExp的构造函数，获取一个新的正则表达式
+    利用第二个参数，修改匹配模式
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var text = "hello1 Hello2 Hello3";
+        var pattern = /Hello\d\s?/i;
+        var result = pattern.exec(text);
+        console.log(result[0]);
+
+        var pattern1 = new RegExp(pattern, "g");
+        var result1 = pattern1.exec(text);
+        console.log(result1[0]);
+        result1 = pattern1.exec(text);
+        console.log(result1[0]);
+        
+    </script>
+</body>
+</html>

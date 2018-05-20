@@ -1,0 +1,52 @@
+<!--
+    模板字面量也可以定义标签，相当于自定义转换函数
+    function tag(literals, ...substitutions){...}
+    var result = tag`...`;
+    第一个参数literals是被占位符分隔的字符串数组，有一个特殊属性raw可获取非转义字符串数组
+    第二个参数substitutions是占位符值的数组
+
+    String.raw`Hello \n World!`;
+    也可以直接获取非转义字符串
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function tag(literals, ...substitutions) {
+            let result = "";
+            for (let i = 0; i < substitutions.length; i++) {
+                result += literals[i] + substitutions[i];
+            }
+            result += literals[literals.length - 1];
+            return result;
+        }
+
+        function raw(literals, ...substitutions) {
+            // raw是literals的一个特殊属性，获取原始字符串信息
+            let result = "";
+            for (let i = 0; i < substitutions.length; i++) {
+                result += literals.raw[i] + substitutions[i];
+            }
+            result += literals.raw[literals.length - 1];
+            return result;            
+        }
+
+        let name = "apple";
+        let price = 2.5;
+        let count = 100;
+        let msg1 = tag`${name} \n total:${price * count}`;
+        let msg2 = raw`${name} \n total:${price * count}`;
+        console.log(msg1);
+        console.log(msg2);
+
+        console.log(String.raw`Hello \n World!`);
+    </script>
+</body>
+</html>

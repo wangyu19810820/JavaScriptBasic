@@ -1,0 +1,39 @@
+<!--
+    用const定义常量，也有块级作用域
+    不能修改常量的值
+    如果常量是对象的话，可以修改常量属性的值
+    如果常量是数组的话，也可以修改数组内的成员构成
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function fun1(condition) {
+            if (condition) {
+                const value = {name:"aa", age:12};
+                value.name = "bb";
+                console.log(value);
+
+                const arr = [1, 2, 3];
+                arr[1] = 4;
+                console.log(arr);
+
+                // 报错:Uncaught TypeError: Assignment to constant variable.
+                // value = {};
+                // console.log(value);
+            }
+            // const定义的常量也有块级作用域
+            // console.log(value);
+        }
+
+        fun1(true);
+    </script>
+</body>
+</html>

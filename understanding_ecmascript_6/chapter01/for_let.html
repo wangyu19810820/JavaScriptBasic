@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const funArr1 = [];
+        const funArr2 = [];
+        const funArr3 = [];
+        const funArr4 = [];
+        // 闭包捕获的由var定义的i在整个循环过程中均有效，三次打印都是3
+        for(var i = 0; i < 3; i++) {
+            funArr1.push(function () {
+                console.log(i);
+            });
+        }
+        // 用自执行函数封装i，闭包捕获的是自执行函数参数v，三次打印0,1,2
+        for(var i = 0; i < 3; i++) {
+            funArr2.push(function (v) {
+                return function() {
+                    console.log(v);
+                }
+            }(i));
+        }
+        // 闭包捕获的由let定义的i只在单次循环内有效，三次打印0,1,2
+        for(let i = 0; i < 3; i++) {
+            funArr3.push(function () {
+                console.log(i);
+            });
+        }
+
+        // let定义的循环变量只在单次循环内有效，不单在for循环中如此，在for-in中也一样
+        // 三次打印a,b,c
+        var obj = {a:"aa", b:"bb", c:"cc"};
+        for (let key in obj) {
+            funArr4.push(function () {
+                console.log(key);
+            });
+        }
+        
+        for (var index = 0; index < 3; index++) {
+            var fun1 = funArr1[index];
+            var fun2 = funArr2[index];
+            var fun3 = funArr3[index];
+            var fun4 = funArr4[index];
+            fun1();
+            fun2();
+            fun3();
+            fun4();
+            console.log("------------------------")
+        }
+    </script>
+</body>
+</html>

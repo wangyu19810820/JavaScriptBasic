@@ -1,0 +1,26 @@
+<!--
+    用var声明的全局变量，如果重名了，会覆盖系统定义的全局变量
+    用let，const定义的全局变量、常量，只会遮盖系统的全局变量，不会覆盖
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        console.log(window.RegExp);
+        // var RegExp = "aa";
+    
+        let RegExp = "aa";
+        // const RegExp = "aa";
+        console.log(RegExp);
+        console.log(window.RegExp);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!--
+    之前可以用正则对象的source获取正则表达式内容，但是不包括模式(如：/g/i)
+    toString获取完整正则表达式内容，再截取字符串取得模式
+    es6后，可通过flags获取模式
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var text = "hello1 Hello2 Hello3";
+        var pattern = /Hello\d\s?/i;
+        console.log(pattern.source);
+        console.log(pattern.toString());
+        console.log(pattern.flags);
+    </script>
+</body>
+</html>

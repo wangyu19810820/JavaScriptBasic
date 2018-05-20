@@ -1,0 +1,43 @@
+<!--
+    es6之前，js只支持UTF-16的基本多文种平面（BMP），只以16位编码，只有2的16次方字符
+    es6之后，js支持辅助平面字符，较常用的用16位编码，不常用的用32位编码
+    对于辅助平面字符，之前教常用的函数length，charAt，charCodeAt，fromCharCode，//.test都有可能出问题
+    可以用codePointAt（某位置字符的编码号码），fromCodePoint（由编码号码生成字符）
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        console.log("吉".length);
+        let t = "吉";
+        console.log(t.length);
+        console.log(/^.$/.test(t));
+        console.log(t.charAt(0));
+        console.log(t.charCodeAt(0));
+        console.log(t.codePointAt(0));
+        console.log("-----------------------------------")
+
+        let txt = "𠮷";
+        console.log(txt.length);
+        console.log(/^.$/.test(txt));
+        console.log(txt.charAt(0));
+        console.log(txt.charAt(1));
+        console.log(txt.charCodeAt(0));
+        console.log(txt.charCodeAt(1));
+        console.log(txt.codePointAt(0));
+        console.log(txt.codePointAt(1));
+
+        console.log("------------------------------------")
+        console.log(String.fromCharCode(21513));
+        console.log(String.fromCharCode(134071));
+        console.log(String.fromCodePoint(134071));
+    </script>
+</body>
+</html>

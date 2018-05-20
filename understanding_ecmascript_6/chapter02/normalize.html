@@ -1,0 +1,47 @@
+<!--
+    Unicode的标准等价方式
+    "xxx".normalize()
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let values = ['𠮷', '吉'];
+        let nor = values.map(function(text){
+            return text.normalize();
+        });
+        nor.sort(function(first, second){
+            if (first < second) {
+                return -1;
+            } else if (first == second) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        console.log(nor);
+
+        values.sort(function(first, second){
+            let firstNor = first.normalize();
+            let secondNor = second.normalize();
+            if (firstNor < secondNor) {
+                return -1;
+            } else if (firstNor == secondNor) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        console.log(values);
+    
+    </script>
+
+</body>
+</html>
