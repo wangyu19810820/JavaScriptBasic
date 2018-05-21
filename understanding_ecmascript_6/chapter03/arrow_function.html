@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 相同效果的：普通函数和箭头函数
+        // 箭头函数，单参数的可省略括号，单行函数体可省略括号和return
+        // var reflect = value => value;
+        // var reflect = function(value) {
+        //     return value;
+        // }
+
+        // 自执行函数
+        // let person = function(name) {
+        //     return {
+        //         getName: function() {
+        //             return name;
+        //         }
+        //     }
+        // }("Nicholas");
+        // console.log(person.getName());
+
+        // 箭头函数的自执行函数
+        let person = ((name) => {
+            return {
+                getName: function() {
+                    return name;
+                }
+            }
+        })("Nicholas");
+        console.log(person.getName());
+        
+    </script>
+</body>
+</html>

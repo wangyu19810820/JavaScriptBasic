@@ -1,0 +1,35 @@
+<!--
+    函数的name属性，代表了函数名
+    有一些特殊的描述：get,set,bind,anonymous
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function fun1(){}
+        var fun2 = function(){}
+        var fun3 = function fun4(){}
+        var obj = {
+            get firstName() {
+                return "firstName";
+            }
+        }
+
+        console.log(fun1.name);
+        console.log(fun2.name);
+        console.log(fun3.name);
+
+        console.log(fun2.bind().name);
+        console.log(new Function("a", "return a;").name);
+        console.log(Object.getOwnPropertyDescriptor(obj, "firstName").get.name);
+ 
+    </script>
+</body>
+</html>

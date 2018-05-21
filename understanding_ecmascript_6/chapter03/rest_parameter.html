@@ -1,0 +1,29 @@
+<!--
+    剩余参数，...param
+    只能放在函数的最后一个参数，
+    使用的时候，param是一个数组
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function pick(object, ...keys) {
+            let result = Object.create({});
+            for (let i = 0, len = keys.length; i < len; i++) {
+                result[keys[i]] = object[keys[i]];
+            }
+            return result;
+        }
+        const obj = {"a":"aa", "b":"bb", "c":"cc"};
+        const r = pick(obj, "a", "b");
+        console.log(r);
+    </script>
+</body>
+</html>

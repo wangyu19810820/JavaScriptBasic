@@ -1,0 +1,42 @@
+<!--
+    参数默认值，甚至可以是表达式，
+    传递的时候，不传或者传undefined，都会使用默认值。传null不会使用默认值。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function getContentPath() {
+            return "http://localhost:8080/demo_proj";
+        }
+        function makeRequest1(url, timeout, callback) {
+            timeout = (typeof timeout != "undefined") ? timeout : 2000;
+            callback = (typeof callback != "undefined") ? callback : function(){}
+        }
+        function makeRequest2(url = getContentPath() + "/foo", timeout = 2000, callback = function(){}) {
+            console.log("url:" + url);
+            console.log("timeout:" + timeout);
+            console.log("callback:" + callback);
+        }
+        makeRequest2("/foo");
+        makeRequest2("/foo", 500);
+        makeRequest2("/foo", 500, function(){
+            console.log("callback");
+        });
+        makeRequest2("/foo", undefined, function(){
+            console.log("callback");
+        });
+        makeRequest2("/foo", null, function(){
+            console.log("callback");
+        });
+        makeRequest2();
+    </script>
+</body>
+</html>

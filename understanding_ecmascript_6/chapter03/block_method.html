@@ -1,0 +1,27 @@
+<!--
+    在块内定义的函数，严格模式下无法在块外访问
+    非严格模式，在块外能访问
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        "use strict"
+        var flag = true;
+        if (flag) {
+            function doSomeThing() {
+
+            }
+        }
+        console.log(typeof doSomeThing)
+    </script>
+
+</body>
+</html>

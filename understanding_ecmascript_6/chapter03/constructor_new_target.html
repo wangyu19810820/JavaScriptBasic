@@ -1,0 +1,43 @@
+<!--
+    元属性new.target，
+    new Xxx()构造出来的，值是构造函数
+    如果是普通函数调用，值是"undefined"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // function Person(name) {
+        //     if (typeof new.target !== "undefined") {
+        //         console.log("new Person")
+        //     } else {
+        //         console.log("normal Person")
+        //     }
+        // }
+        // Person('aa');
+        // new Person('bb');
+
+        function Person1(name) {
+            console.log(new.target)
+            if (new.target === Person1) {
+                console.log("new Person1")
+            } else {
+                console.log("normal Person1")
+            }
+        }
+        function AnotherPerson(name) {
+            Person1.call(this, name);
+        }
+        var p1 = new Person1('aa');
+        var p2 = new AnotherPerson('aa');
+        Person1('aa');
+    </script>
+</body>
+</html>

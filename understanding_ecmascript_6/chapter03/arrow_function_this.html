@@ -1,0 +1,61 @@
+<!--
+    箭头函数没有自身的：this,arguments,new.target,super
+    由外层函数决定这些值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>aaaaaaaaaaaaaaaaa</p>
+
+    <script>
+        // 报错，this指针指向错误
+        // var PageHandler = {
+        //     id: "123456",
+        //     init: function() {
+        //         document.addEventListener('click', function(){
+        //             this.doSomeThing()
+        //         })
+        //     },
+        //     doSomeThing:function(type) {
+        //         console.log("doSomeThing");
+        //     }
+        // }
+        // PageHandler.init();
+
+        // 重新绑定this指针，但是代码繁琐，不直观
+        // var PageHandler = {
+        //     id: "123456",
+        //     init: function() {
+        //         document.addEventListener('click', (function() {
+        //             this.doSomeThing()
+        //         }).bind(this), false);
+        //     },
+        //     doSomeThing:function(type) {
+        //         console.log("doSomeThing");
+        //     }
+        // }
+        // PageHandler.init();
+
+        // 用箭头函数
+        var PageHandler = {
+            id: "123456",
+            init: function() {
+                document.addEventListener('click', () => {
+                    this.doSomeThing()
+                })
+            },
+            doSomeThing:function(type) {
+                console.log("doSomeThing");
+            }
+        }
+        PageHandler.init();
+
+    </script>
+</body>
+</html>

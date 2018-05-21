@@ -1,0 +1,53 @@
+<!--
+    es5中非严格模式，arguments对象和具名参数重合
+    es5中的严格模式，arguments对象和具名参数不重合
+    js中使用函数参数默认值，arguments对象和具名参数不重合
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 严格模式，函数的具名参数，和argumens参数不重合
+        function mixArgs1(first, second) {
+            "use strict"
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+            first = "c";
+            second = "d";
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+        }
+
+        // 非严格模式，函数的具名参数，和argumens参数重合
+        function mixArgs2(first, second) {
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+            first = "c";
+            second = "d";
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+        }
+        // 应用默认参数的时候，函数的具名参数，和argumens参数不重合
+        function mixArgs3(first, second = "b") {
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+            first = "c";
+            second = "d";
+            console.log(first === arguments[0]);
+            console.log(second === arguments[1]);
+        }
+        mixArgs1("a", "b");
+        mixArgs2("a", "b");
+        mixArgs3("a", "b");
+    
+    </script>
+
+</body>
+</html>
