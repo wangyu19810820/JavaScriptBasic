@@ -1,6 +1,7 @@
 <!--
     对象属性拷贝：Object.assign(target, source1, source2...)
     将source1，source2内的属性和方法复制到对象target中
+    get,set丢失，转换为普通属性
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -24,13 +25,25 @@
             age: 37,
             print() {
                 console.log(this.name + "," + this.age);
-            }
+            },
+            get address() {
+                console.log("get 被调用")
+                return "abc";
+            },
+            set address(v) {
+                console.log("set")
+                this.age = v;
+            },
         }
 
         var obj = Object.assign({}, obj1, obj2);
         obj.name = 'wangyu'
         obj.printName();
         obj.print();
+
+        // get,set丢失，转换为普通属性address，初始值是get方法返回的“abc”
+        obj.address = 1;
+        console.log(obj.address)
 
     </script>
 </body>
