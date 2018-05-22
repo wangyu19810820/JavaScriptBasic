@@ -1,0 +1,47 @@
+<!--
+    对象属性简写
+    对象属性名和其它标识符重名的时候，可简写
+    对象方法也可简写，省略function关键字
+    对象属性也可用[]命名，里面可以是已存在标识符，也可以是表达式
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function createPerson(name, age) {
+            var firstName = "first name";
+            var suffix = " name";
+            return {
+                // 传统写法
+                age:age,
+                sayHello: function() {
+                    return "hello, my name is " + this.name + ", i am " + this.age + " old";
+                },
+
+                // es6属性初始化简写，属性name和参数name同名的情况下，可以简写
+                name,
+                // es6方法简写
+                greet() {
+                    return `hi, my name is ${name}, i am ${age} old`;
+                },
+
+                "full name":"wang yu",
+                [firstName]:"wang",
+                ["last" + suffix]:"yu",
+            }
+        }
+        var person = createPerson('wy', 37);
+        console.log(person.sayHello());
+        console.log(person.greet());
+        console.log(person["full name"] + ":" + person["first name"] + " " + person["last name"])
+    </script>
+
+</body>
+</html>

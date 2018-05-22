@@ -1,0 +1,37 @@
+<!--
+    对象属性拷贝：Object.assign(target, source1, source2...)
+    将source1，source2内的属性和方法复制到对象target中
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var obj1 = {
+            name: 'wy',
+            printName() {
+                console.log(this.name);
+            }
+        }
+
+        var obj2 = {
+            age: 37,
+            print() {
+                console.log(this.name + "," + this.age);
+            }
+        }
+
+        var obj = Object.assign({}, obj1, obj2);
+        obj.name = 'wangyu'
+        obj.printName();
+        obj.print();
+
+    </script>
+</body>
+</html>

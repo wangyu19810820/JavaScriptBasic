@@ -1,0 +1,56 @@
+<!--
+    es6的super获取原型，代替Object.getPrototypeOf(x)，更保险
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var animal = {
+            getGreeting() {
+                return "animal greeting";
+            }
+        }
+
+        var person = {
+            getGreeting() {
+                return "person greeting";
+            }
+        }
+
+        var friend = {
+            getGreeting() {
+                // Object.getPrototypeOf(x)获取对象原型
+                return Object.getPrototypeOf(this).getGreeting.call(this) + ",hi!";
+            }
+        }
+        // 为friend对象设置原型
+        Object.setPrototypeOf(friend, person);
+        console.log(friend.getGreeting());
+
+        Object.setPrototypeOf(friend, animal);
+        console.log(friend.getGreeting());
+
+        // 报错，死循环调用原型上的getGreeting方法
+        var relative = Object.create(friend);
+        // console.log(relative.getGreeting());
+
+        // es6的super获取原型，代替Object.getPrototypeOf(x)，更保险
+        var friend1 = {
+            getGreeting() {
+                return super.getGreeting.call(this) + ",hi!";
+            }
+        }
+        Object.setPrototypeOf(friend1, person);
+        var relative1 = Object.create(friend1);
+        console.log(relative1.getGreeting());
+    </script>
+
+</body>
+</html>
