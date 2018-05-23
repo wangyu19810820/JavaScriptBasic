@@ -1,0 +1,29 @@
+<!--
+    Symbol有toString()方法，可用于console.log()，String(...)，
+    可用于布尔运算，认为是true
+    但是不能用于和字符串相加，不能用于数学运算
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let uid = Symbol.for("uid");
+        console.log(uid);
+        console.log(uid.toString());
+        console.log(String(uid));
+        console.log(!!uid);
+
+        // Uncaught TypeError: Cannot convert a Symbol value to a string
+        // console.log("" + uid);
+        
+        // Uncaught TypeError: Cannot convert a Symbol value to a number
+        // console.log(uid / 1);
+    </script>
+</body>
+</html>

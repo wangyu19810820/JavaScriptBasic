@@ -1,0 +1,49 @@
+<!--
+    Symbol是一种新类型，不同于数字，字符串，布尔，对象，undefined
+    Symbol可用于“需计算属性名”，比如中括号引用的属性名，Object.defineProperty()，Object.defineProperties()
+    用Symbol属性名的属性，不同于用字符串属性名的属性
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let firstName = Symbol();
+        let lastName = Symbol("last name");
+        let person = {};
+        person[firstName] = "wang";
+        person[lastName] = "yu";
+        // Symbol的firstName，不同于字符串firstName
+        person["firstName"] = "Wang";
+        console.log(person["firstName"]);
+        console.log(person.firstName);
+        console.log(person[firstName]);
+        console.log(person[lastName]);
+        console.log(firstName);
+        console.log(lastName);
+        console.log(lastName in person);
+        console.log("last name" in person);
+        console.log(typeof firstName);
+        console.log('--------------------------------');
+
+        let person1 = {};
+        Object.defineProperty(person1, firstName, {value:'wy', writable:false});
+        Object.defineProperties(person1, {
+            // 中括号不能省
+            [lastName]:{
+                value:"yu",
+                writable:false,
+            },
+        });
+        console.log(person1[firstName]);
+        console.log(person1[lastName]);
+
+    </script>
+</body>
+</html>
