@@ -1,0 +1,64 @@
+<!--
+    new Set()定义Set，
+    有方法add(),has(),属性size,
+    遍历forEach(function(value, key, set){}, this)
+    转换成Array，[...set]
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let set = new Set();
+        set.add(5);
+        set.add("5");
+        set.add(5);
+        console.log(set.size);
+
+        set = new Set([1, 2, 3, 3, 2, 1]);
+        console.log(set.size);
+        console.log(set.has(4));
+        console.log(set.has(1));
+        console.log('-------------------------------------------------------');
+
+        // 遍历
+        set.forEach((value, key, ownSet) => {
+            console.log(`value:${value}, key:${key}, ownSet===set:${ownSet === set}`);
+        });
+        console.log("-----------------------------------------------------------------");
+
+        // 遍历时的this指针
+        var process = {
+            output(v) {
+                console.log(v);
+            },
+            handle(dataSet) {
+                dataSet.forEach(function(v) {
+                    this.output(v);
+                }, this);
+            },
+            handle1(dataSet) {
+                dataSet.forEach((v)=>{
+                    this.output(v);
+                });
+            }
+        }
+        process.handle(set);
+        process.handle1(set);
+        console.log("-----------------------------------------------------------------");
+
+        // 转换为Array
+        let arr = [...set];
+        console.log(arr);
+
+
+    </script>
+
+</body>
+</html>

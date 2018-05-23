@@ -1,0 +1,27 @@
+<!--
+    虽然可以用object模拟Map和Set，但是有问题
+    比如键是对象的时候，会将键转换成字符串“[object Object]”，设定键值时会相互覆盖
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let map = {};
+        let obj1 = {a:"aa"};
+        let obj2 = {b:"bb"};
+        // 键是字符串[object Object],所以虽然obj1和obj2不同，但是会覆盖
+        map[obj1] = "obj1";
+        map[obj2] = "obj2";
+        console.log(map);
+
+    </script>
+</body>
+</html>
