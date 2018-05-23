@@ -1,0 +1,52 @@
+<!--
+    数组解构
+    将数组内的值解构到变量中
+    [firstColor, secondColor] = colors;
+    let [forthColor, fifthColor] = colors;
+
+    可以定默认值，可以略过一些值，可以从嵌套数组中解构值，可以将多余数据传递给一个多值变量(...value1)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let colors = ["red", "green", "blue"],
+            firstColor = "black",
+            secondColor = "purple";
+        // 数组解构赋值
+        [firstColor, secondColor] = colors;
+        let [forthColor, fifthColor] = colors;
+        console.log(firstColor);
+        console.log(secondColor);
+        console.log(forthColor);
+        console.log(fifthColor);
+        console.log('--------------------------------------------');
+
+        // 略过第一个值，并且给变量设定默认值
+        [, firstColor, secondColor = "green"] = ["red"];
+        console.log(firstColor);
+        console.log(secondColor);
+        console.log('--------------------------------------------');
+
+        // 嵌套数组的解构
+        [firstColor, [secondColor]] = ["red", ["green"], "blue"];
+        console.log(firstColor);
+        console.log(secondColor);
+        console.log('--------------------------------------------');
+
+        // 剩余项
+        [firstColor, ...secondColor] = colors;
+        console.log(firstColor);
+        console.log(secondColor);
+        console.log('--------------------------------------------');
+        
+    </script>
+</body>
+</html>

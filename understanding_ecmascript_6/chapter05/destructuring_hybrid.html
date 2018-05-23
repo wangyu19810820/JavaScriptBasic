@@ -1,0 +1,41 @@
+<!--
+    从对象数组的混合json中，解析出值
+    let {name: localName, address:{city, road:localRoad}} = node;
+    let [{name}, {age:localAge}] = arr;
+    特别适合提取服务器端的json中的部分值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let node = {
+            name: 'wy',
+            age: 18,
+            address: {
+                city: 'nanjing',
+                road: 'yuhua',
+            },
+        }
+        let {name: localName, address:{city, road:localRoad}} = node;
+        console.log(localName);
+        console.log(city);
+        console.log(localRoad);
+
+        let arr = [{name: 'jim', age: 12}, {name: 'tom', age:13}];
+        let [{name}, {age:localAge}] = arr;
+        console.log(name);
+        console.log(localAge);
+
+        let names = [];
+        [{name:names[0]}, {name:names[1]}] = arr;
+        console.log(names);
+    </script>
+</body>
+</html>

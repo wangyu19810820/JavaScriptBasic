@@ -1,0 +1,66 @@
+<!--
+    解构对象，值在左边，变量在右边，属性名和变量同名可简写
+    解构到已存在变量中
+    ({type, name:name1='wy', age=18} = node);
+    node内的值解构到type,name1,age中
+
+    解构到新定义的变量中
+    let { 
+        type:localType='int', 
+        age=38, 
+        addr:{city, street:localStreet} 
+    } = node;
+    node内的值解构到localType,age,city,localStreet中
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        let node = {
+            type: "Identifier",
+            name: "foo",
+            addr: {
+                city: "shanghai",
+                street: "road one",
+            },
+        };
+        let type = "Literal";
+        let name1 = 5;
+        let age = 1;
+        ({type, name:name1='wy', age=18} = node);
+        console.log(type);
+        console.log(name1);
+        console.log(age);
+        
+        // 对象解构的值总体是对象
+        // function output(value) {
+        //     console.log(value);
+        // }
+        // output({type, name} = node);
+        // console.log(type);
+        // console.log(name);
+
+        // 解构赋值
+        // let { 
+        //     type:localType='int', 
+        //     name='wy', 
+        //     age=38, 
+        //     addr:{city, street:localStreet} 
+        // } = node;
+        // console.log(localType);
+        // console.log(name);
+        // console.log(age);
+        // console.log(city);
+        // console.log(localStreet);
+
+    </script>
+</body>
+</html>

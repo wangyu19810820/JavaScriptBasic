@@ -1,0 +1,41 @@
+<!--
+    函数参数传值
+    function setCookie(name, value, {secure="low", path=""} = {})
+    setCookie('/home', 'shop', {secure:'high', path:'/'});
+    第三个参数，需赋默认值={}，否则调用函数不传递任何参数的时候会报错
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 传统写法，阅读函数声明，无法获知如何传值给options
+        function setCookie1(name, value, options) {
+            options = options || {};
+            let secure = options.secure;
+            let path = options.path;
+            console.log(name);
+            console.log(value);
+            console.log(secure);
+            console.log(path);
+        }
+        setCookie1('/home', 'shop', {secure:'high', path:'/'});
+        console.log('------------------------------------')
+
+        // 应用函数参数解构，函数声明中已经体现了第三个参数该如何传值
+        function setCookie2(name, value, {secure="low", path=""} = {}) {
+            console.log(name);
+            console.log(value);
+            console.log(secure);
+            console.log(path);
+        }
+        setCookie2('/home', 'shop', {secure:'high', path:'/'});
+    </script>
+</body>
+</html>
