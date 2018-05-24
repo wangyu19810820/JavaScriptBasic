@@ -1,0 +1,52 @@
+<!--
+    Map初始化
+    let map = new Map();
+    let map1 = new Map([["name", "wy"], ["age", 37]]);
+
+    实用方法和属性
+    map.set("title", "Understanding ES6");
+    map.get("title");
+    map.has("title");
+    map.delete("title"); 
+    map.clear();
+    map.size
+
+    遍历
+    map.forEach(function(value, key, ownMap) {
+    });
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let map = new Map();
+        map.set("title", "Understanding ES6");
+        map.set("year", 2016);
+
+        console.log(map.has("title"));
+        console.log(map.get("title"));
+        map.delete("year");
+        console.log(map.size);
+        map.clear();
+        console.log(map);
+        console.log('------------------------------------------');
+
+        let map1 = new Map([["name", "wy"], ["age", 37]]);
+        console.log(map1.size);
+        console.log(map1.get("name"));
+        console.log(map1.get("age"));
+        console.log('------------------------------------------');
+
+        map1.forEach(function(value, key, ownMap) {
+            console.log(`key:${key}, value:${value}, ownMap === map1:${ownMap === map1}`);
+        });
+    </script>
+</body>
+</html>

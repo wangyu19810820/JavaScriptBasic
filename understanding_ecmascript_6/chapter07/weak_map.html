@@ -1,0 +1,27 @@
+<!--
+    WeakMap,键仅能是对象，
+    只有set，get，has方法
+    没有size属性，没有clear方法，不能参与for-in和forEach遍历
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let obj1 = {},
+            obj2 = {};
+        let map = new WeakMap([[obj1, "wy"]]);
+        map.set(obj2, "nanjing");
+        map.delete(obj1);
+        console.log(map.has(obj2));
+        console.log(map.get(obj2));
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!--
+    定义私有属性
+    privateData只能在匿名自执行函数内可见，所以Person的name属性只能通过getName()访问
+    因为privateData是WeakMap，所以存储在内的数据不会产生内存泄漏
+    又因为对象的属性需用数字，字符串，而Map可以直接用对象做键，所以直接用this做键名，代码较简介
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let Person = (function(){
+            let privateData = new WeakMap();
+            function Person(name) {
+                privateData.set(this, {name: name});
+            }
+            Person.prototype.getName = function() {
+                return privateData.get(this).name;
+            }
+            return Person;
+        }());
+
+        let p1 = new Person("wy");
+        console.log(p1.getName());
+        let p2 = new Person("wangyu");
+        console.log(p2.getName());
+    </script>
+
+</body>
+</html>

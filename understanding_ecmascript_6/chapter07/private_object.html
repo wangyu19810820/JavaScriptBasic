@@ -1,0 +1,41 @@
+<!--
+    定义私有属性
+    privateData，privateId只能在匿名自执行函数内可见，包括InnerPerson的方法内可见
+    所以Person(实际上是InnerPerson)的name属性只能通过getName()访问
+
+    这个例子中，可能有内存泄漏，privateData的数据只会增加不会销毁
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var Person = (function() {
+            var privateData = {},
+                privateId = 0;
+
+            function InnerPerson(name) {
+                Object.defineProperty(this, "_id", {value: privateId++});
+                privateData[this._id] = {
+                    name:name,
+                }
+            }
+            InnerPerson.prototype.getName = function() {
+                return privateData[this._id].name;
+            }
+            return InnerPerson;
+        }());
+
+        var p1 = new Person("wangyu");
+        var p2 = new Person("wy");
+        console.log(p1.getName());
+        console.log(p2.getName());
+    </script>
+</body>
+</html>
