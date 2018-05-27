@@ -1,0 +1,60 @@
+<!--
+    类定义的表达式形式
+    let PersonType = class {}
+    或
+    let PersonType1 = class PersonType2 {}
+
+    如同函数是JavaScript中的一等公民，类也是JavaScript中的一等公民
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 基本的类表达式
+        let PersonType = class {
+            constructor(name) {
+                this.name = name;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+        }
+        let person = new PersonType("wy");
+        person.sayName();
+        console.log(PersonType.name);
+
+        // 命名表达式语法
+        let PersonType1 = class PersonType2 {
+            constructor(name) {
+                this.name = name;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+        }
+        let person1 = new PersonType1("wangyu");
+        person1.sayName();
+
+        // 将类定义表达式作为函数参数
+        function creatPerson(classDef, name) {
+            return new classDef(name);
+        }        
+        let person2 = creatPerson(class {
+            constructor(name) {
+                this.name = name;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+        }, "wang yu");
+        person2.sayName();
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!--
+    类定义的声明形式
+    用class定义类，内部属性一般直接写在构造函数内
+    只是语法糖，最终会转换成传统的对象继承
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        class PersonType {
+            constructor(name) {
+                // 不能在内部修改类名，会报错Uncaught TypeError: Assignment to constant variable.
+                // PersonType = "a string";
+                this.name = name;
+            } 
+            sayName() {
+                console.log(this.name);
+            }
+        }
+
+        let person = new PersonType("wy");
+        person.sayName();
+
+        console.log(person instanceof PersonType);
+        console.log(person instanceof Object);
+        console.log(typeof PersonType);
+        console.log(typeof PersonType.prototype.sayName);
+
+        PersonType = "a string";
+        console.log(typeof PersonType);
+    </script>
+</body>
+</html>
