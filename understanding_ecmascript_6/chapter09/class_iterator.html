@@ -1,0 +1,38 @@
+<!--
+    可以在类中用迭代器
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        class Collection {
+            constructor(){
+                this.items = [];
+            }
+            push(item) {
+                this.items.push(item);
+            }
+            *[Symbol.iterator]() {
+                for (let item of this.items) {
+                    yield item;
+                }
+            }
+        }
+
+        let col = new Collection();
+        col.push(1);
+        col.push(2);
+        col.push(3);
+        for (let i of col) {
+            console.log(i);
+        }
+    </script>
+</body>
+</html>

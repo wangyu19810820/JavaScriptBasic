@@ -1,0 +1,46 @@
+<!--
+    es6的类能继承自表达式，
+    甚至是一个比较复杂的函数调用
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let serializeObject = {
+            serialize() {
+                return JSON.stringify(this);
+            }
+        }
+
+        let getAreaObject = {
+            getArea() {
+                return this.length * this.width;
+            }
+        }
+
+        function mixin(...object) {
+            var base = function(){};
+            Object.assign(base.prototype, ...object);
+            return base;
+        }
+
+        class Square extends mixin(serializeObject, getAreaObject) {
+            constructor(length) {
+                super();
+                this.length = length;
+                this.width = length;
+            }
+        }
+        let s1 = new Square(10);
+        console.log(s1.serialize());
+        console.log(s1.getArea());
+    </script>
+</body>
+</html>

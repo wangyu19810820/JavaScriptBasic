@@ -5,6 +5,7 @@
     let PersonType1 = class PersonType2 {}
 
     如同函数是JavaScript中的一等公民，类也是JavaScript中的一等公民
+    类中的属性名和方法名也可用动态值
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +56,34 @@
             }
         }, "wang yu");
         person2.sayName();
+
+        // 自执行匿名类的构造函数
+        let person3 = new class {
+            constructor(name) {
+                this.name = name;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+        }("wy");
+        person3.sayName();
+
+        // 方法名和属性采用计算值
+        let propName = "firstName";
+        let methodName = "get_" + propName;
+        let person4 = new class {
+            constructor() {
+                this.value = "";
+            }
+            set [propName](value) {
+                this.value = value;
+            }
+            [methodName]() {
+                console.log(this.value);
+            }
+        }
+        person4.firstName = "wang";
+        person4.get_firstName();
     </script>
 </body>
 </html>

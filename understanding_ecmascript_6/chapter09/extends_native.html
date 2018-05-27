@@ -1,0 +1,73 @@
+<!--
+    es5继承原生对象，会丢失很多特性，而es6可以顺利的继承自原生对象
+    因为es5的继承是在派生类中先实例化this指针，再传给父类的构造函数
+    es6的继承是从父类的构造函数中获取this指针，然后再修改this指针
+
+    静态属性Symbol.species是个特殊属性，隐含的意思是：内部工厂函数生成的构造类型
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // es5继承原生的Array对象
+        function MyArray1() {
+            Array.apply(this, arguments);
+        }
+        MyArray1.prototype = Object.create(Array.prototype, {
+            constructor:{
+                value:MyArray1,
+                enumerable:true,
+                writable:true,
+                configurable:true,
+            }
+        });
+        var arr1 = new MyArray1();
+        arr1[0] = "red";
+        // 原生的length和元素数量相关联的特性丢失了
+        console.log(arr1.length);
+
+        // es6继承原生Array对象
+        class MyArray2 extends Array {
+            // 控制slice方法返回的类型，默认是this
+            static get [Symbol.species]() {
+                // return Array;
+                return this;
+            }
+        }
+        let arr2 = new MyArray2();
+        arr2[0] = "red";
+        // 原生的特性仍然被保留了
+        console.log(arr2.length);
+        console.log(arr2.slice(0, 1));
+
+        // Symbol.species使用,隐含的意思是：内部工厂函数生成的构造类型
+        // 一般设置成返回this,则工厂返回的是派生类类型
+        class MyClass {
+            static get [Symbol.species]() {
+                return this;
+            }
+            clone() {
+                return new this.constructor[Symbol.species]();
+            }
+        }
+        class MyClass1 extends MyClass {
+        }
+        class MyClass2 extends MyClass {
+            static get [Symbol.species]() {
+                return MyClass;
+            }
+        }
+        let m1 = new MyClass1();
+        let m2 = new MyClass2();
+        console.log(m1.clone());
+        console.log(m2.clone());
+    </script>
+</body>
+</html>

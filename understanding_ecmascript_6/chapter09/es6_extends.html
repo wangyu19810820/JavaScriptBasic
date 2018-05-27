@@ -1,0 +1,52 @@
+<!--
+    用extends指明某个类继承自另一个类
+    同样是语法糖
+    构造函数中一般需用super调用父类的构造函数
+    方法可覆盖，并可用super调用父类中的函数
+    静态方法也可继承，这一特性有点特殊
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        class Rectangle {
+            constructor(length, width) {
+                this.length = length;
+                this.width = width;
+            }
+            area() {
+                return this.constructor.name + (this.length * this.width);
+            }
+            static create(length, width) {
+                return new Rectangle(length, width);
+            }
+        }
+
+        class Square extends Rectangle {
+            constructor(length) {
+                super(length, length);
+            }
+            area() {
+                return "super:" + super.area();
+            }
+        }
+
+        let r1 = new Rectangle(2, 10);
+        console.log(r1.area());
+        
+        let s1 = new Square(10);
+        console.log(s1.area());
+
+        let s2 = Square.create(3, 5);
+        console.log(s2.area());
+
+    </script>
+</body>
+</html>

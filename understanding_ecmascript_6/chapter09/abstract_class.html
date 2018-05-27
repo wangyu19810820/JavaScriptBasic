@@ -1,0 +1,39 @@
+<!--
+    用new.target === 类名，然后抛出异常，
+    控制该类是抽象类
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        class Shape {
+            constructor() {
+                if (new.target === Shape) {
+                    throw new Error("Abstract class, can not instance");
+                }
+            }
+            printName() {
+                console.log("printName");
+            }
+        }
+        class Rectangle extends Shape {
+            constructor() {
+                super();
+            }
+        }
+
+        let r = new Rectangle();
+        r.printName();
+
+        // 抛出异常
+        // let s = new Shape();
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function PersonType1(name) {
+            this.name = name;
+        }
+        PersonType1.prototype.sayName = function() {
+            console.log(this.name);
+        }
+        PersonType1.create = function(name) {
+            return new PersonType1(name);
+        }
+        var person1 = PersonType1.create("wangyu");
+        person1.sayName();
+
+        class PersonType2 {
+            constructor(name) {
+                this.name = name;
+            }
+            sayName() {
+                console.log(this.name);
+            }
+            static create(name) {
+                return new PersonType2(name);
+            }
+        }
+        let person2 = new PersonType2("wy");
+        person2.sayName();
+    </script>
+</body>
+</html>

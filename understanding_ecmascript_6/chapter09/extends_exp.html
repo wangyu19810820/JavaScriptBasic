@@ -1,0 +1,36 @@
+<!--
+    不单能继承自es6的类，也能继承自es5的构造函数，
+    不单能继承自类声明，构造函数声明，也能继承自表达式
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function Rectangle(length, width) {
+            this.length = length;
+            this.width = width;
+        }
+        Rectangle.prototype.area = function() {
+            return this.length * this.width;
+        }
+        function getBase() {
+            return Rectangle;
+        }
+
+        let Square = class extends getBase() {
+            constructor(length) {
+                super(length, length);
+            }
+        }
+        let s1 = new Square(10);
+        console.log(s1.area());
+    </script>
+</body>
+</html>

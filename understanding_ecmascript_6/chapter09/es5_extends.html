@@ -1,0 +1,52 @@
+<!--
+    es5的继承，教繁琐，不易掌握
+    子类构造函数中用call方法，调用父类的构造函数，完成初始化
+    子类构造函数的原型，指向一个新建对象，这个新建对象的原型是父类构造函数的原型
+    并重置子类原型中的构造函数属性
+    这样实现了原型继承，子类的原型和父类的原型也不互相冲突
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function Rectangle(length, width) {
+            this.length = length;
+            this.width = width;
+        }
+        Rectangle.prototype.area = function() {
+            return this.constructor.name + (this.length * this.width);
+        }
+
+        function Square(length) {
+            Rectangle.call(this, length, length);
+        }
+        // es3
+        // var f = function(){};
+        // f.prototype = Rectangle.prototype;
+        // Square.prototype = new f();
+        // Square.prototype.constructor = Square;
+
+        // es5
+        Square.prototype = Object.create(Rectangle.prototype, {
+            constructor:{
+                value:Square,
+                enumerable:true,
+                writable:true,
+                configurable:true,
+            }
+        });
+
+        var s1 = new Square(10);
+        console.log(s1.area());
+        var r1 = new Rectangle(2, 10);
+        console.log(r1.area())
+    </script>
+</body>
+</html>
