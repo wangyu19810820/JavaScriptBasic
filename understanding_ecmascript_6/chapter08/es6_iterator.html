@@ -1,7 +1,9 @@
 <!--
-    定义迭代器函数
+    定义生成器
     function *createIterator() {}
     var createIterator1 = function *() {}
+    迭代器
+    var ite = createIterator();
 
     内部使用yield返回当前值, 也可用return提前返回值。
     yield不能用于迭代器内部函数内
@@ -46,7 +48,7 @@
         console.log(ite1.next());
         console.log('-----------------------------');
         
-        // yield不能用于迭代器内部函数内
+        // yield不能用于生成器内部函数内
         function *createIterator2() {
             // function a() {
             //     yield 2;

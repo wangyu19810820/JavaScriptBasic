@@ -1,0 +1,28 @@
+<!--
+    拥有迭代器的对象都可以应用解构运算符...
+    let arr = [...set, ...str, ...map];
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let str = "abc";
+        let set = new Set(["1", "2", "3"]);
+        let map = new Map([["a", 10], ["b", 20], ["c", 30]]);
+        let arr = [...set, ...str, ...map];
+        console.log(arr);
+
+        function fun1 (p1, p2, p3) {
+            console.log(`p1:${p1}, p2:${p2}, p3:${p3}`)
+        }
+        fun1(...str);
+    </script>
+</body>
+</html>

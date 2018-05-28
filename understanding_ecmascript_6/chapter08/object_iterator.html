@@ -1,3 +1,6 @@
+<!--
+    对象实现Symbol.iterator生成器后，就可以应用到for-of循环中
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +33,7 @@
         collection.add(2);
         collection.add(3);
 
+        // var iterator = collection[Symbol.iterator]();
         var iterator = collection.createIterator();
         console.log(iterator.next());
         console.log(iterator.next());

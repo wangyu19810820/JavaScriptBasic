@@ -1,0 +1,28 @@
+<!--
+    用for循环遍历字符串，遇到辅助平面字符，会有bug
+    for-of循环遍历字符串，能支持所有unicode字符
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let txt = "a𠮷b";
+        // 用索引遍历unicode字符，遇到辅助平面字符，会出bug
+        for (let i = 0; i < txt.length; i++) {
+            console.log(txt[i]);
+        }
+
+        // 用迭代器遍历，能支持所有unicode字符
+        for (let c of txt) {
+            console.log(c);
+        }
+    </script>
+</body>
+</html>

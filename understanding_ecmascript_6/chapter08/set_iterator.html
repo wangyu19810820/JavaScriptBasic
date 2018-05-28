@@ -1,0 +1,40 @@
+<!--
+    Array，Set，Map都有3个迭代器
+    entries()，keys()，values()
+    Set中，
+    entries()遍历的是元素+元素的数组
+    keys()遍历的是元素
+    values()遍历的是元素
+    默认是values() (keys()和values()都一样)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let set = new Set([10, 20, 30]);
+        for (let e of set.entries()) {
+            // e是数组，第一个元素是值，第二个元素是值
+            console.log(e[0] + ":" + e[1]);
+        }
+        for (let k of set.keys()) {
+            // 当前元素
+            console.log(k);
+        }
+        for (let v of set.values()) {
+            // 当前元素
+            console.log(v);
+        }
+        for (let d of set) {
+            // 当前元素
+            console.log(d);
+        }
+    </script>
+</body>
+</html>
