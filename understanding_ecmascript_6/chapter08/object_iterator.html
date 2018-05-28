@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var collection = {
+            items : [],
+            add(item) {
+                this.items.push(item);
+            },
+            *createIterator() {
+                for (let i = 0; i < this.items.length; i++) {
+                    yield "a" + this.items[i];
+                }
+            },
+            *[Symbol.iterator]() {
+                for (let i = 0; i < this.items.length; i++) {
+                    yield "b" + this.items[i];
+                }
+            },
+        }
+
+        collection.add(1);
+        collection.add(2);
+        collection.add(3);
+
+        var iterator = collection.createIterator();
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+
+        for (item of collection) {
+            console.log(item);
+        }
+    </script>
+</body>
+</html>
