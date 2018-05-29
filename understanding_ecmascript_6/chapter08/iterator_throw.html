@@ -1,0 +1,32 @@
+<!--
+    迭代器也可以传递错误iterator.throw(new Error("Boom"))
+    生成器内可考虑处理此错误try{...}catch(ex){...}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function *createIterator() {
+            try {
+                let first = yield 1;
+                yield 2;
+            } catch (ex) {
+                yield 3;
+            }
+        }
+
+        let iterator = createIterator();
+        console.log(iterator.next(1));
+        // console.log(iterator.next(2));
+        console.log(iterator.throw(new Error("Boom")));
+        console.log(iterator.next());
+    </script>
+</body>
+</html>

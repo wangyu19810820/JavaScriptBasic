@@ -1,0 +1,66 @@
+<!--
+    用生成器和传值，将异步模拟成同步
+    调用生成器的函数，从异步函数中取出内容，传递给生成器函数
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 模拟读文件操作，读取文件，将内容传给回调函数
+        function fake_readFile(fileName, callback) {
+            setTimeout(function(){
+                callback("abc");
+            }, 500);
+        }
+        // 测试代码
+        // fake_readFile("a.txt", console.log);
+        
+        // 包装器，包装实际的读文件函数
+        // 生成包装器的时候已经指定了文件名，接收回调函数作为参数
+        // 将读取到的内容传给回调函数
+        function readFile(fileName) {
+            return function(callback){
+                fake_readFile(fileName, callback);
+            }
+        }
+        function run(taskDef) {
+            let task = taskDef();
+            let result = task.next();
+
+            function step() {
+                if (!result.done) {
+                    // 同时支持同步异步
+                    if (typeof result.value === "function") {
+                        // 返回值是一个回调函数，内容是回调函数接收的参数
+                        result.value(function(data){
+                            result = task.next(data);
+                            step();
+                        })
+                    } else {
+                        // 返回值是内容本身
+                        result = task.next(result.value);
+                        step();
+                    }
+                }
+            }
+            step();
+        }
+
+        // 看上去像同步取数据，实际上是异步取数据
+        run(function *(){
+            // readFile("a.txt")返回一个函数，
+            // yield readFile("a.txt")取出内容，转交给当前函数
+            let content = yield readFile("a.txt");
+            console.log(content);
+            console.log("done")
+        })
+    </script>
+</body>
+</html>

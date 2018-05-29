@@ -1,0 +1,40 @@
+<!--
+    异步操作的一个编程模式，
+    连续执行一组任务，直到结束。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function run(taskDef) {
+            // 迭代器
+            let task = taskDef();
+            let result = task.next();
+            // 不断调用迭代器
+            function step() {
+                console.log("------------------------")
+                if (!result.done) {
+                    result = task.next();
+                    step();
+                }
+            }
+            step();
+        }
+
+        run(function *(){
+            console.log(1);
+            yield;
+            console.log(2);
+            yield;
+            console.log(3);
+        })
+    </script>
+</body>
+</html>

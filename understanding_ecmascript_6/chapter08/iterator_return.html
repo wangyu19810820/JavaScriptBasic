@@ -1,0 +1,35 @@
+<!--
+    生成器内可以有返回语句return xxx;
+    在next()语句内，value为返回值，done为true。后续的next(),value都为undefined,done都为true。
+    在for-of语句内，不会出现return,和return后的值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function *createIterator() {
+            yield 1;
+            yield 2;
+            return 3;
+            yield 4;
+        }
+
+        let iterator = createIterator();
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+
+        for (let i of createIterator()) {
+            console.log(i);
+        }
+    </script>
+</body>
+</html>

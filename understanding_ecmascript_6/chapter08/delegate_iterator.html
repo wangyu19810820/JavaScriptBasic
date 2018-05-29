@@ -1,0 +1,44 @@
+<!--
+    委托生成器
+    在生成器内也可以再次生成迭代器
+    yield *createNumber();
+    嵌套生成器内部的yield语句会返回给最外层调用者
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function *createNumber() {
+            yield 1;
+            yield 2;
+            return 3;
+        }
+
+        function *createRepeat(count) {
+            for (let i = 0; i < count; i++) {
+                yield "Repeat";
+            }
+        }
+
+        function *createIterator() {
+            let count = yield *createNumber();
+            yield *createRepeat(count);
+        }
+
+        let iterator = createIterator();
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+    </script>
+</body>
+</html>
