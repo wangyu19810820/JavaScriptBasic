@@ -9,7 +9,29 @@
 <body>
     
     <script>
+        function printArr(arr) {
+            console.log((arr instanceof Array) + "-----------------")
+            console.log(arr.length);
+            for (let [i, v] of arr.entries()) {
+                console.log(`index:${i}, value:${v}`);
+            }
+            
+        }
+
         let items = new Array(2);
+        printArr(items);
+        items = new Array("2");
+        printArr(items);
+        items = new Array(2, 3);
+        printArr(items);
+        items = new Array(...[2]);
+        printArr(items);
+
+        // 根据一组参数，生成数组
+        items = Array.of(1, 2, 3);
+        printArr(items);
+
+
     </script>
 </body>
 </html>

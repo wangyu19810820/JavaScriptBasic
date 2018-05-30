@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function printArr(arr) {
+            console.log((arr instanceof Array) + "-----------------")
+            console.log(arr.length);
+            for (let [i, v] of arr.entries()) {
+                console.log(`index:${i}, value:${v}`);
+            }
+            
+        }
+
+        // es5将数组对象转换成数组
+        items = Array.prototype.slice.call("abc");
+        printArr(items);
+
+        // 将数组对象转换成数组
+        items = Array.from("xyz");
+        printArr(items);
+
+        // 将一个数组转换成另一个数组
+        items = Array.from(items, (v) => v + "100");
+        printArr(items);
+
+        let helper = {
+            prefix: 'a_',
+            addPrefix(v) {
+                return this.prefix + v;
+            }
+        }
+        // 可以指定转换函数的this指针
+        items = Array.from(items, helper.addPrefix, helper);
+        printArr(items);
+
+        let fib = {
+            first:1, 
+            second:1,
+            *[Symbol.iterator]() {
+                for (let i = 0; i < 5; i++) {
+                    let t = this.first;
+                    this.first = this.second;
+                    this.second = t + this.second;
+                    yield t;
+                }
+            },
+        }
+        // Array.from转换数组，第一个参数可用任何带默认迭代器的对象
+        items = Array.from(fib, (v) => "fib:" + v);
+        printArr(items);
+    </script>
+</body>
+</html>
