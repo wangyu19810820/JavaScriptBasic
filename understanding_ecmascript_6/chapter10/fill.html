@@ -1,0 +1,31 @@
+<!--
+    filter方法，用指定的值填充数组，
+    第一个参数是填充内容，第二个参数是填充开始索引，第三个参数是填充结束索引
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let number = [25, 30, 35, 40, 45];
+        number.fill(1);
+        for(let [i, v] of number.entries()) {
+            console.log(`${i}:${v}`);
+        }
+        console.log('------------------------------------------------------');
+
+        number.fill(2, 1, 3);
+        for(let [i, v] of number.entries()) {
+            console.log(`${i}:${v}`);
+        }
+
+
+    </script>
+</body>
+</html>

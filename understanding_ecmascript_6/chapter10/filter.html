@@ -1,0 +1,25 @@
+<!--
+    filter返回一个满足过滤条件的数组
+    number.filter((value, index, arr)=>{});
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let number = [25, 30, 35, 40, 45];
+        let result = number.filter((value, index, arr)=>{
+            return value > 33;
+        });
+        for(let i of result) {
+            console.log(i);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!--
+    find方法，满足断言函数的第一个值
+    findIndex方法，满足断言函数的第一个索引
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let number = [25, 30, 35, 40, 45];
+        let result1 = number.find((value)=>{
+            return value > 33;
+        });
+        console.log(result1);
+
+        let result2 = number.findIndex((value)=>{
+            return value > 33;
+        });
+        console.log(result2);
+        
+    </script>
+</body>
+</html>

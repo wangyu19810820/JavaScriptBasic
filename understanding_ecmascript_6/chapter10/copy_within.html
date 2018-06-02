@@ -1,0 +1,26 @@
+<!--
+    copyWithin拷贝数组内的一段到另一段
+    第一个参数，拷贝的位置索引
+    第二个参数，拷贝内容的起始索引
+    第三个参数，拷贝内容的结束索引
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let number = [25, 30, 35, 40, 45];
+        number.copyWithin(3, 0, 1);
+        for(let [i, v] of number.entries()) {
+            console.log(`${i}:${v}`);
+        }
+
+    </script>
+</body>
+</html>
