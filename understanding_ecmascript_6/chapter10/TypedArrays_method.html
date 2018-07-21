@@ -1,0 +1,66 @@
+<!-- 
+	定型数组的方法
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let ints = new Int16Array([25, 50]);
+        console.log(ints.length);
+        console.log(ints[0]);
+        console.log(ints[1]);
+
+        // 定型数组的长度是个固定值
+        ints.length = 3;
+        console.log(ints.length);
+
+        // 定型数组的方法名与普通方法类似，功能也类似
+        // 但是也有些小区别，map方法返回的就是定型数组而非普通数组
+        let ints1 = ints.map(v => v * 2);
+        console.log(ints1[0]);
+        console.log(ints1[1]);
+        console.log(ints1 instanceof Int16Array);
+
+        // 定型数组也有普通数组的三个迭代器entries(), keys(), values()
+        let arr1 = [...ints];
+        console.log(arr1 instanceof Array);
+        console.log(arr1[0]);
+        console.log(arr1[1]);
+
+        // 定型数组也有of和from方法，用法类似，但是返回的是定型数组类型
+        let ints2 = Int16Array.of(25, 50);
+        let floats1 = Float32Array.from([1.5, 2.5]);
+        for(let i of ints2) {
+            console.log(i);
+        }
+        for (let i of floats1) {
+            console.log(i);
+        }
+
+        // 定型数组不是普通数组
+        console.log(ints1 instanceof Array);
+        // 定型数组越界赋值是无效的
+        ints1[3] = 40;
+        console.log(ints1[3]);
+
+        // 定型数组的独特方法
+        // set方法从其他数组赋值内容到此定型数组中
+        let ints3 = new Int16Array(4);
+        ints3.set([25, 50]);
+        ints3.set([75, 100], 2);
+        console.log(ints3.toString());
+
+        // subarray生成新的定型数组，参数1是开始索引，参数2是结束索引
+        console.log(ints3.subarray());
+        console.log(ints3.subarray(2));
+        console.log(ints3.subarray(1, 3));
+
+    </script>
+</body>
+</html>
