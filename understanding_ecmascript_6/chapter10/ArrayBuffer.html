@@ -1,0 +1,43 @@
+<!-- 
+    定型数组可以方便WebGL的编程 
+    先开辟数组缓冲区，再从数组缓冲区中获取视图
+    以Int8，Int16,Float32,Float64的形式操作视图
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    	// 数组缓冲区
+        let buffer1 = new ArrayBuffer(10);
+        console.log(buffer1.byteLength);
+        
+        // 分割已有的数组缓冲区，以创建一个新的
+        let buffer2 = buffer1.slice(4, 6);	// 2字节长度
+        console.log(buffer2.byteLength);
+        
+        // 从数据缓冲区创建视图，通过视图来操作数据
+        let view1 = new DataView(buffer1);
+        // 第二个参数是偏移量，第三个参数是长度
+        let view2 = new DataView(buffer1, 5, 2);
+        
+        console.log(view2.buffer === buffer1);
+        console.log(view2.byteOffset);
+        console.log(view2.byteLength);
+        
+        // 通过视图来操作数据
+        view1.setInt8(0, 5);
+        view1.setInt8(1, -1);
+        console.log(view1.getInt8(0));
+        console.log(view1.getInt8(1));
+        console.log(view1.getInt16(0));
+        
+    </script>
+</body>
+</html>

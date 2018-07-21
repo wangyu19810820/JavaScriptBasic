@@ -1,0 +1,57 @@
+<!-- 
+	定型数组，也是数组缓冲区的一个视图。
+	可从数组缓冲区获取 
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    	// 从数组缓冲中获取定型数组
+        let buffer1 = new ArrayBuffer(10);
+        let arr1 = new Int8Array(buffer1);
+        let arr2 = new Int8Array(buffer1, 5, 2);
+        console.log(arr1.buffer === buffer1);
+        console.log(arr2.buffer === buffer1);
+        console.log(arr1.byteOffset);
+        console.log(arr1.byteLength);
+        console.log(arr2.byteOffset);
+        console.log(arr2.byteLength);
+
+        // 直接初始化定型数组，由类型和长度，决定内部开辟的缓冲区字节长度
+        let ints = new Int16Array(2);
+        let floats = new Float32Array(5);
+        console.log("Int16是没单元占两个字节");
+        console.log(ints.byteLength);
+        console.log(ints.length);
+        console.log("Float32是没单元占四个字节");
+        console.log(floats.byteLength);
+        console.log(floats.length);
+
+        // 从数组、定型数组、类数组对象或者可迭代对象中创建定型数组
+        let ints1 = new Int16Array([25, 50]);
+        console.log(ints1.byteLength);
+        console.log(ints1.length);
+        console.log(ints1[0]);
+        console.log(ints1[1]);
+
+        // 从定型数组创建新定型数组，但是他们的数据缓冲不一样
+        let ints2 = new Int32Array(ints1);
+        console.log(ints1.buffer === ints2.buffer);
+        console.log(ints2.byteLength);
+        console.log(ints2.length);
+        console.log(ints2[0]);
+        console.log(ints2[1]);
+
+        // 获取定型数组的元素大小
+        console.log(Int16Array.BYTES_PER_ELEMENT);
+        console.log(ints1.BYTES_PER_ELEMENT);
+
+    </script>
+</body>
+</html>
