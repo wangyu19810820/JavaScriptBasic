@@ -1,0 +1,39 @@
+<!--
+    js中异步事件编程模型，
+    完成某个触发条件后，调用某个回调函数
+    比如读文件完成后调用某个回调函数readFile('fileName1.txt', fun1);
+    但是多层嵌套的回调，代码比较难看
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 执行方法method1， 有错误抛异常，
+        // 成功后调用method2, 以此类推
+        method1(function(err, result){
+            if (err) {
+                throw err;
+            }
+            method2(function(err, result){
+                if (err) {
+                    throw err;
+                }
+                method3(function(err, result) {
+                    method4(function(err, result){
+                        if (err) {
+                            throw err;
+                        }
+                        method5(result);
+                    })
+                });
+            });
+        });
+    </script>
+</body>
+</html>
