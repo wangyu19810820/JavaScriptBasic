@@ -1,0 +1,37 @@
+<!--
+    链式调用的Promise，链条上支持返回值，如果是普通数据类型
+    可以作为链条上的下一个执行器的参数
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+
+        p1.then(function(value){
+            console.log("p1:" + value);
+            return value + 1;
+        }).then(function(value){
+            console.log("p1:" + value);
+        })
+
+        let p2 = new Promise(function(resolve, reject){
+            reject(42);
+        });
+        p2.catch(function(value){
+            console.log("p2:" + value);
+            return value + 1;
+        }).then(function(value){
+            console.log("p2:" + value);
+        })
+    </script>
+</body>
+</html>

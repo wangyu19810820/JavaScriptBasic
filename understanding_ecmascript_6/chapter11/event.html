@@ -1,0 +1,39 @@
+<!--
+    浏览器上的window对象也有Promise的全局事件
+    未处理出错，已处理出错
+    事件名称和node相同，但是大小写不同
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        window.addEventListener("unhandledrejection", e => {
+            console.log(e.type);
+            console.log(e.reason.message);
+            console.log(e.promise === promise);
+        })
+        window.addEventListener("rejectionhandled", e => {
+            console.log(e.type);
+            console.log(e.reason.message);
+            console.log(e.promise === promise);
+        })
+
+        var promise = Promise.reject(new Error("no handler"));
+        setTimeout(function(){
+            promise.catch(function(err){
+
+            })
+        }, 1000)
+
+
+
+    </script>
+</body>
+</html>

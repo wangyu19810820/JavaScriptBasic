@@ -1,0 +1,61 @@
+<!--
+    链式调用的Promise，链条上支持返回值，如果是Promise
+    该返回的Promise成功，则继续执行下一个resolve,
+    且该返回Promise的成功值会被作为参数传递下去
+    该返回的Promise失败则继续执行下一个reject
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+        let p2 = new Promise(function(resolve, reject){
+            resolve(43);
+        });
+        let p3 = new Promise(function(resolve, reject){
+            reject(44);
+        })
+
+        // 如果resolve中返回Promise，则判断该Promise成果还是失败
+        // 如果成功则继续执行下一个resolve
+        p1.then(function(value){
+            console.log("1:" + value);
+            return p2;
+        }).then(function(value){
+            console.log("1:" + value);
+        })
+
+        // 等价于
+        let p4 = p1.then(function(value){
+            console.log("2:" + value);
+            return p2;
+        });
+        console.log(p2 === p4);
+        p4.then(function(value){
+            console.log("2:" + value);
+        })
+
+        // 返回Promise是一个reject的例子，会执行reject链
+        p1.then(function(value){
+            console.log("3:" + value);
+            return p3;
+        }).then(
+            function(value){
+                console.log("3:" + value);
+            }, 
+            function(value){
+                console.log("3:" + value);
+            }
+        )
+    </script>
+    
+</body>
+</html>

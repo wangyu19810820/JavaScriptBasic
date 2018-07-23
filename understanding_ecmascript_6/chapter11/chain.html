@@ -1,0 +1,37 @@
+<!--
+    Promise支持链式调用
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 链式调用，后一个处理器紧接着前一个处理器
+        let p1 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+        
+        p1.then(function(value){
+            console.log(value);
+        }).then(function(){
+            console.log("finish");
+        })
+
+        // 前一个处理器的抛异常，后一个reject处理器也能处理
+        let p2 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+        p2.then(function(value){
+            console.log(value);
+            throw new Error("Boom!");
+        }).catch(function(err){
+            console.log(err.message);
+        })
+    </script>
+</body>
+</html>

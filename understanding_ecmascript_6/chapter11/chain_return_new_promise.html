@@ -1,0 +1,29 @@
+<!--
+    Promise执行器中返回的Promise，可以是内部匿名的，
+    且该Promise会先执行完毕，原Promise的链才会继续执行
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+        p1.then(function(value){
+            console.log(value);
+            let p2 = new Promise(function(resolve, reject){
+                resolve(43);
+            })
+            return p2;
+        }).then(function(value){
+            console.log(value);
+        })
+    </script>
+</body>
+</html>
