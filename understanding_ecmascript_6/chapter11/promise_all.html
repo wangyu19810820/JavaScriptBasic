@@ -1,0 +1,52 @@
+<!--
+    Promise.all接收多个Promise的数组，返回一个Promise
+    所有Promise执行都成功后，该返回Promise才执行resolve，参数是执行结果的数组
+    如果其中一个失败，则执行reject
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let p1 = new Promise(function(resolve, reject){
+            resolve(42);
+        });
+
+        let p2 = new Promise(function(resolve, reject){
+            resolve(43);
+        });
+
+        let p3 = new Promise(function(resolve, reject){
+            resolve(44);
+        });
+
+        let p4 = new Promise(function(resolve, reject){
+            reject(45);
+        })
+
+        let p5 = new Promise(function(resolve, reject){
+            reject(46);
+        })
+
+        let p6 = Promise.all([p1, p2, p3]);
+
+        p6.then(function(value){
+            console.log(Array.isArray(value));
+            console.log(value[0]);
+            console.log(value[1]);
+            console.log(value[2]);
+        });
+
+        let p7 = Promise.all([p1, p4, p5]);
+        p7.catch(function(value){
+            console.log(Array.isArray(value));
+            console.log(value);
+        })
+    </script>
+</body>
+</html>

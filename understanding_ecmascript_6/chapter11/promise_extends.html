@@ -1,0 +1,47 @@
+<!--
+    自定义类，继承自Promise，添加自定义方法
+    
+    因为Promise的Symbol.species属性设为this，
+    所以静态方法MyPromise.resolve()，MyPromise.reject()
+    返回的都是自定义类
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class MyPromise extends Promise {
+            success(resolve, reject) {
+                return this.then(resolve, reject);
+            }
+            failure(reject) {
+                return this.catch(reject);
+            }
+        }
+
+        let promise = new MyPromise(function(resolve, reject) {
+            resolve(42);
+        });
+        promise.success(
+                function(value) {
+                    console.log(value);
+                },
+                function(err) {
+                    console.log(err.message);
+                })
+            .failure(
+                function(err) {
+                    console.log(err.message);
+                }
+            );
+
+        let promise1 = MyPromise.resolve(42);
+        console.log(promise1 instanceof MyPromise);
+    </script>
+</body>
+</html>
