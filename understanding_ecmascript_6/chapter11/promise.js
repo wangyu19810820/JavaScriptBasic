@@ -7,7 +7,7 @@
 var Promise = require("bluebird");
 var readFile = Promise.promisify(require("fs").readFile);
 
-let promise = readFile("example.txt");
+let promise = readFile("example.txt", {encoding:"utf8"});
 // 处理成功回调，处理失败回调
 promise.then(function(contents){
     console.log(contents);
