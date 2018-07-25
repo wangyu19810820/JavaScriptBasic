@@ -1,0 +1,50 @@
+<!--
+    deleteProperty陷阱：deleteProperty(target, key)
+    拦截属性是否可被删除
+    target：要删除属性的对象（被代理的目标）
+    key：要删除的属性键
+
+    反射删除属性：Reflect.deleteProperty(target, key)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let target = {
+            name: "target",
+            value: 42,
+        }
+
+        // value属性不允许删除，其他属性可被删除
+        let proxy = new Proxy(target, {
+            deleteProperty(target, key) {
+                if (key === "value") {
+                    return false;
+                } else {
+                    return Reflect.deleteProperty(target, key);
+                }
+            }
+        });
+
+        // 通过ES5的配置属性的特性，也能实现类似的效果
+        // 让某些属性无法被删除
+        // Object.defineProperty(target, "value", {configurable:false})
+
+        delete proxy.name;
+        delete proxy.value;
+
+        // name属性已经删除，value属性没有被删除
+        console.log(target);
+        console.log(target.name);
+        console.log(target.value);
+
+    </script>
+</body>
+</html>

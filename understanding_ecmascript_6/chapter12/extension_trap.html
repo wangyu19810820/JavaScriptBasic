@@ -1,0 +1,70 @@
+<!--
+    检测对象是否可扩展：isExtensible(target)
+    target：被检测对象（代理的目标）
+    返回值：true或者false
+    但是为了确保target和proxy的isExtensible是一致的，
+    不能单独设置true或者false，需返回Reflect.isExtensible(target)的值
+
+    设置是否允许对象可扩展：preventExtensions(target)
+    target：被设置对象（代理的目标）
+    返回值：true或者false
+    但是为了确保target和proxy的isExtensible是一致的，
+    不能单独返回true或false，需返回Reflect.preventExtensions(target)的值
+
+    反射检测对象是否可扩展：Reflect.isExtensible(target)
+    反射设置是否允许对象可扩展：Reflect.preventExtensions(target)
+    Object.isExtensible()，Reflect.isExtensible()
+    Object.preventExtensions()，Reflect.preventExtensions()
+    签名相同，功能类似，小有区别，反射的方法更底层，校验更严格
+    参数的数据类型不正确，会抛异常，Object仅返回无意义值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+        let proxy = new Proxy(target, {
+            // 检测对象是否是可扩展的
+            isExtensible(target) {
+                return Reflect.isExtensible(target);
+                // Object.isExtensible(proxy) 必须同Object.isExtensible(target)返回相同值。
+                // 否则会抛TypeError
+                // 所以最好不要单独返回true或者false
+            },
+            // 设置是否允许对象可扩展
+            preventExtensions(target) {
+                // Reflect.preventExtensions(target)总能返回true
+                // 确保target和proxy的isExtensible是一致的，所以不能单独返回true或false
+                // 否则会抛TypeError
+                console.log(Reflect.preventExtensions(target));
+                return true;
+            }
+        });
+        
+        console.log(Object.isExtensible(proxy));
+        proxy.name = "proxy";
+        console.log(proxy.name);
+
+        Object.preventExtensions(proxy);
+        console.log(Object.isExtensible(proxy));
+        // // 对象不能再被扩展了，无法为proxy新定义属性
+        proxy.count = 1;
+        console.log(proxy.count);
+
+        // 返回false
+        console.log(Object.isExtensible(2));
+        // 返回2
+        console.log(Object.preventExtensions(2));
+
+        // 抛异常
+        // console.log(Reflect.isExtensible(2));
+        // console.log(Reflect.preventExtensions(2));
+    </script>
+</body>
+</html>

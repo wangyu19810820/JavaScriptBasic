@@ -1,0 +1,65 @@
+<!--
+    定义属性的特性的陷阱：defineProperty(target, key, descriptor)
+    target：代理对象
+    key：属性名
+    descriptor：属性的特性
+
+    获取属性的特性的陷阱：getOwnPropertyDescriptor(target, key)
+    target：代理对象
+    key：属性名
+    有很多限制条件，最好能返回Reflect.getOwnPropertyDescriptor(target, key)或实际值
+
+    反射定义属性的特性：Reflect.defineProperty(target, key, descriptor)
+    反射获取属性的特性：Reflect.getOwnPropertyDescriptor(target, key)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let proxy = new Proxy({}, {
+            defineProperty(target, key, descriptor) {
+                // 不允许设置，抛异常
+                if (key === "count") {
+                    return false;
+                }
+
+                // 允许设置，但是无效果
+                if (key === "symbol") {
+                    return true;
+                }
+
+                // 只包含系统定义的属性的特性：enumerable,configurable,value,writable,get,set
+                // 不包含用户定义的特性
+                console.log(descriptor);                
+                return Reflect.defineProperty(target, key, descriptor);
+            },
+            getOwnPropertyDescriptor(target, key) {
+                // 有诸多限制，最好能返回Reflect.getOwnPropertyDescriptor(target, key)
+                // 或者实际值
+                return Reflect.getOwnPropertyDescriptor(target, key);
+             }
+        });
+
+        // 系统定义的属性的特性，才会被传入陷阱函数
+        Object.defineProperty(proxy, "name", {value:"proxy", name:"name"});
+        console.log(proxy.name);
+
+        // 抛异常
+        // Object.defineProperty(proxy, "count", {value:"count"});
+
+        // 无效果，打印undefined
+        Object.defineProperty(proxy, "symbol", {value:"symbol"});
+        console.log(proxy.symbol);
+
+        let descriptor = Object.getOwnPropertyDescriptor(proxy, "name");
+        console.log(descriptor.value);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!--
+    获取原型陷阱：getPrototypeOf(target)
+    拦截获取原型的方法
+    target：获取原型的目标对象（代理的目标）
+    返回值：可被使用者看成是对象的原型
+
+    设置原型陷阱setPrototypeOf(target, proto)
+    target：设置原型的目标对象（代理的目标）
+    proto：对象的原型
+    返回值：true表示设置成功，false表示设置失败
+
+    反射获取对象原型：Reflect.getPrototypeOf(target)
+    反射设置对象原型：Reflect.setPrototypeOf(target, proto);
+    和Object.getPrototypeOf(target)，Object.setPrototypeOf(target, proto1)
+    在方法签名上非常类似，但是略有区别
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+
+        // 既不允许设置原型，也无法获取原型
+        let proxy = new Proxy(target, {
+            getPrototypeOf(target){
+                // return null;
+                return Reflect.getPrototypeOf(target);
+            },
+            setPrototypeOf(target, proto) {
+                // return false;
+
+                // Reflect.setPrototypeOf()如果成果，返回也是true
+                // 所以这边可以简写的
+                Reflect.setPrototypeOf(target, proto);
+                return true;
+            },
+        })
+
+        var proto1 = {};
+        var proto2 = {};
+
+        // 设置和获取target的原型
+        Object.setPrototypeOf(target, proto1);
+        console.log(Object.getPrototypeOf(target) === proto1);
+
+        // 设置和获取proxy的原型
+        console.log(Object.getPrototypeOf(proxy)); 
+        // 如果陷阱中setPrototypeOf()返回false，会抛异常       
+        Object.setPrototypeOf(proxy, proto2);
+        console.log(Object.getPrototypeOf(target) === proto2);  
+
+        // 区别：Reflect.getPrototypeOf(target)，Object.getPrototypeOf(target)
+        // 对数字，获取原型，会转换成Number对象，再返回
+        console.log(Object.getPrototypeOf(1) === Number.prototype);
+        // 对数字，获取原型，会抛异常
+        // console.log(Reflect.getPrototypeOf(1))
+
+        // 区别：Reflect.setPrototypeOf(target, proto)，Object.setPrototypeOf(target, proto1)
+        let target1 = {};
+        // Object.setPrototypeOf(target, proto)返回被设置对象
+        console.log(Object.setPrototypeOf(target1, {}) === target1);
+        // Reflect.setPrototypeOf(target, proto)返回设置是否成功，true或false
+        console.log(Reflect.setPrototypeOf(target1, {}));
+    </script>
+</body>
+</html>
