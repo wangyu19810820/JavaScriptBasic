@@ -1,0 +1,52 @@
+<!--
+    get陷阱：get(target, key, receive) 
+    拦截属性访问方法
+    trapTarget：代理的目标对象
+    key：写入的属性键（字符串或Symbol类型）
+    receiver：操作发生的对象（通常是代理）
+
+    Reflect.get(target, key, receive)
+    反射的方式获取属性的值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let proxy = new Proxy({}, {
+            get(target, key, receive) {
+                // 忽略不希望受到影响的已有属性
+
+                // in在对象和对象的原型上是否存在该属性
+                // hasOwnProperty在对象自身上是否存在该属性
+
+                // 在receive上调用in，而不是在target上调用in
+                // 是尊重has陷阱，has陷阱隐藏的属性，也会抛异常
+                if (!(key in receive)) {
+                   throw new TypeError("属性:" + key + "，不存在");
+                }
+                return Reflect.get(target, key, receive);
+            },
+            // 设置了has陷阱后，name属性在代理上，也是被隐藏的
+            // has(target, key) {
+            //     if (key === "name") {
+            //         return false;
+            //     } else {
+            //         return true;
+            //     }
+            // }
+        })
+
+        proxy.name = "proxy";
+        console.log(proxy.name);
+
+        // 抛出一个异常
+        console.log(proxy.count);
+    </script>
+</body>
+</html>

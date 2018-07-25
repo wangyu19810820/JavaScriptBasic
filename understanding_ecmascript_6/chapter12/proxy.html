@@ -1,0 +1,30 @@
+<!--
+    创建代理let proxy = new Proxy(target, {});
+    代理会拦截目标对象的方法，
+    本例子中没实现任何陷阱，故只是简单转发
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+        let proxy = new Proxy(target, {});
+
+        proxy.name = "proxy";
+        console.log(proxy.name);
+        console.log(target.name);
+
+        target.name = "target";
+        console.log(proxy.name);
+        console.log(target.name);
+
+    </script>
+</body>
+</html>
+

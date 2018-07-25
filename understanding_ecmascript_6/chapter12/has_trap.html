@@ -1,0 +1,40 @@
+<!--
+    has陷阱：has(trapTarget, key)
+    拦截检测某属性在对象和对象原型上是否存在
+    trapTarget：属性的对象（代理的目标）
+    key：要检查的属性建（字符串或Symbol）
+
+    Reflect.has(trapTarget, key)
+    反射检测某属性在对象和对象原型上是否存在
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {
+            name: "target",
+            value: 42,
+        }
+
+        let proxy = new Proxy(target, {
+            has(trapTarget, key) {
+                if (key === "value") {
+                    return false;
+                } else {
+                    return Reflect.has(trapTarget, key);
+                }
+            }
+        });
+
+        console.log("value" in proxy);
+        console.log("name" in proxy);
+    
+    </script>
+</body>
+</html>

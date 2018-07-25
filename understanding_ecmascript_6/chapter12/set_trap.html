@@ -1,0 +1,49 @@
+<!--
+    set陷阱：set(trapTarget, key, value, receiver)
+    拦截属性设置方法
+    trapTarget：代理的目标对象
+    key：写入的属性键（字符串或Symbol类型）
+    value：被写入属性的值
+    receiver：操作发生的对象（通常是代理）
+
+    Reflect.set(trapTarget, key, value, receiver)
+    反射的方式设置属性的值
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {
+            name: "target"
+        }
+        let proxy = new Proxy(target, {
+            set(trapTarget, key, value, receiver) {
+                // 不存在的属性，只能设定为数字的值
+                if (!trapTarget.hasOwnProperty(key)) {
+                    if (isNaN(value)) {
+                        throw new TypeError("属性必须是数字");
+                    }
+                }
+                return Reflect.set(trapTarget, key, value, receiver);
+            }
+        })
+
+        proxy.name = "proxy";
+        console.log(target.name);
+
+        proxy.count = 1;
+        console.log(target.count);
+
+        // 此处会抛异常
+        proxy.auth = "pwd";
+        console.log(target.auth);
+
+    </script>
+</body>
+</html>
