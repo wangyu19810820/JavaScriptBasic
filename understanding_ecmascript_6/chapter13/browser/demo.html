@@ -1,0 +1,58 @@
+<!--
+    node暂时无法原生支持es6的模块导入
+    浏览器支持两种形式的es6模块
+    一种是导入外部文件的模块，
+    另一种是内联内容作为模块导入
+    两种方式都指定了type="module"，而非原先的type="text/javascript"
+
+    script加载模块自动应用defer属性，
+    <script type="module" src="module1.js"></script>
+    执行要在所有元素解析完成之后
+    执行顺序是按script标签在文档中的顺序
+    同时递归执行模块内导入的模块
+    具体执行顺序是
+    execute module1
+    execute module3
+    execute inline
+    execute module2
+    其中module1仅被执行了一次
+
+    script也可以指定async模式，
+    <script type="module" async src="module1.js"></script>
+    也可在加载完所有依赖模块后执行该模块，
+    但是多个不相关的模块，无固定执行先后顺序
+
+    还有一种将模块作为Worker（Web Worker或Service Worker）加载
+    可参看书籍
+
+    模块说明符，也就是import后面的路径，有以下几种格式
+    以/开头，代表根目录
+    以./开头，代表当前目录
+    以../开头，代表父目录
+    url格式
+    常见无效的：module1.js，js/module1.js
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- 导入外部文件的模块 -->
+    <script type="module" src="module1.js"></script>
+
+    <!-- 内联内容作为模块导入 -->
+    <script type="module">
+        import "./module3.js";
+        console.log("execute inline");
+    </script>
+
+    <script type="module" src="module2.js"></script>
+    <script type="module" src="module1.js"></script>
+</head>
+<body>
+    aa
+</body>
+</html>
