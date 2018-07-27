@@ -1,0 +1,39 @@
+<!--
+    导入模块有两种写法
+    一种是导出某些变量：import {sum, Rectangle} from "./export.js"
+    另一种是完全导出所有变量到一个对象中：import * as example from "./export.js"
+    注意点：
+    无论import了几次export.js，该文件只被执行了一次，其所有变量都缓存于内存中
+    export和import都只能用于其顶级作用域的独立语句，不能内嵌在语句中，不能用于表达式中
+    只能静态import和export，这些限制都能方便IDE做代码补全提示
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script type="module">
+        import * as example from "./export.js"
+
+        console.log(example.multiply(2, 5));
+        new example.Rectangle(1, 2);
+
+        // subtract是私有的
+        // console.log(example.subtract(12, 5));
+    </script>
+
+    <script type="module">
+        import {sum, Rectangle} from "./export.js"
+
+        console.log(sum(2, 5));
+        new Rectangle(1, 2);
+    </script>
+
+</head>
+<body>
+    aa
+</body>
+</html>
