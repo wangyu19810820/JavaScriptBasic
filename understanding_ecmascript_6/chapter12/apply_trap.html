@@ -1,0 +1,50 @@
+<!--
+    apply陷阱：apply: function(target, arg, argumentList)
+    拦截方法调用proxy(...args)，以及call和apply
+    代理的是函数，而非对象
+    target：代理目标（函数）
+    thisArg：被调用时的上下文对象
+    argumentsList：被调用时的参数数组
+
+    反射调用apply：Reflect.apply(target, thisArg, argumentList)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {
+            name:"obj",
+            sum:function(a, b){
+                return a + b;
+            }
+        }
+        let proxy = new Proxy(target.sum, {
+            apply: function(target, thisArg, argumentList) {
+                console.log(thisArg);
+                console.log(argumentList);
+                // 参数必须都是数字类型
+                argumentList.forEach(element => {
+                    if (typeof arg !== "number") {
+                        throw new TypeError("All arguments must be numbers");
+                    }
+                });
+                return Reflect.apply(target, thisArg, argumentList);
+            },
+        });
+
+        let result = proxy.call({name:"obj1"}, 12, 24);
+        console.log(result);
+        console.log(typeof proxy);
+
+        // 抛异常
+        // proxy("1", 2);
+
+    </script>
+</body>
+</html>

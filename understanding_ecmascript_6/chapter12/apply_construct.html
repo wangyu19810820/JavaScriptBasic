@@ -1,0 +1,39 @@
+<!--
+    new.target和代理都能让一个函数只能用于构造函数，或普通函数
+    但是代理能规避原函数的行为
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = function(a, b) {
+            if (new.target === undefined) {
+                throw new Error("必须用构造函数调用此函数")
+            }
+            this.name = "calc";
+            this.result = a + b;
+        };
+
+        // 原函数用new.target限定了只能用于构造函数
+        // 代理用apply，让此函数也能作为普通函数被调用，返回一个对象
+        let proxy = new Proxy(target, {
+            apply:function(target, thisArg, argumentList) {
+                return Reflect.construct(target, argumentList);
+            }
+        })
+
+        console.log(new target(1, 2));
+        console.log(proxy(1, 2));
+
+        // 抛异常
+        // console.log(target(1, 2));
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!--
+    创建普通代理：new Proxy(target)
+    创建可撤销的代理：let {proxy, revoke} = Proxy.revocable(target, {});
+    其中proxy是代理，revoke是撤销函数
+    调用revoke()后，proxy的target属性是null，无法再进行任何操作了
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {
+            name: "target",
+        };
+
+        // 创建可撤销的代理
+        let {proxy, revoke} = Proxy.revocable(target, {});
+
+        console.log(proxy.name);
+
+        // 撤销代理，proxy的target为空
+        revoke();
+
+        // 抛异常
+        console.log(proxy);
+        console.log(proxy.name);
+    </script>
+</body>
+</html>

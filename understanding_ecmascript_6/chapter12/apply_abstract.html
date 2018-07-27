@@ -1,0 +1,77 @@
+<!--
+    apply_construct.html中用代理，绕开某个函数仅能作为构造函数调用的限制
+    new.target === undefined
+
+    如果某个类的构造函数，用new.target === AbstractNumbers将此类限制为抽象类
+    也可以用代理绕开此限制
+    construct陷阱中调用Reflect.construct，并且传递三个参数
+    第一个参数是代理对象，第二个对象是参数列表，第三个参数是生成对象的new.target
+
+    es6的class的构造函数，也不能作为普通函数调用
+    但是，用代理也可以绕开此限制，写法与绕开new.target === undefined限制类似
+    apply陷阱中调用Reflect.construct(target, argumentList)
+    第一个参数是代理对象，第二个参数是参数列表
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 抽象类
+        class AbstractNumbers {
+            constructor(...values) {
+                console.log(new.target);
+                if (new.target === AbstractNumbers) {
+                    throw new TypeError("This function must be inherited.");
+                }
+                this.values = values;
+            }
+        }
+        
+        // 子类
+        class MyNumbers extends AbstractNumbers {
+            constructor(...values) {
+                super(...values);
+            }
+        }
+
+        // 代理，绕开抽象类不能实例化的限制
+        let AbstractNumbersProxy = new Proxy(AbstractNumbers, {
+            construct:function(target, argumentList) {
+                return Reflect.construct(target, argumentList, function(){})
+            }
+        });
+
+        // 代理，绕开构造函数不能作为普通函数被调用的限制
+        let myNumbersProxy = new Proxy(MyNumbers, {
+            apply:function(target, tisArg, argumentList) {
+                return Reflect.construct(target, argumentList);
+            }
+        })
+
+        // 验证
+        let num1 = new MyNumbers(1, 2, 3);
+        console.log(num1);
+
+        // 抛异常，AbstractNumbers的构造函数限制此类为抽象类
+        // let num2 = new AbstractNumbers(1, 2, 3);
+
+        // 用代理绕开抽象类的限制
+        let num3 = new AbstractNumbersProxy(1, 2, 3);
+        console.log(num3);
+
+        // 抛异常，MyNumbers是class的写法，不能作为普通函数调用
+        // let num4 = MyNumbers(1, 2, 3);
+
+        // 用代理绕开class的构造函数，不能作为普通函数调用
+        let num4 = myNumbersProxy(1, 2, 3);
+        console.log(num4);
+
+    </script>
+</body>
+</html>

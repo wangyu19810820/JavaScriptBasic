@@ -1,0 +1,49 @@
+<!--
+    construct陷阱：construct: function(target, argumentList)
+    拦截构造函数
+    代理的是函数，而非对象
+    target：代理目标（函数）
+    thisArg：被调用时的上下文对象
+    argumentsList：被调用时的参数数组
+
+    反射调用construct：Reflect.construct(target, argumentList)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = function(a, b) {
+            this.name = "calc";
+            this.result = a + b;
+        };
+
+        let proxy = new Proxy(target, {
+            construct: function(target, argumentList) {
+                console.log(argumentList);
+                // 参数必须都是数字类型
+                argumentList.forEach(element => {
+                    if (typeof arg !== "number") {
+                        throw new TypeError("All arguments must be numbers");
+                    }
+                });
+                return Reflect.construct(target, argumentList);
+            }
+        });
+
+        console.log(typeof proxy);
+        var instance = new proxy(12, 24);
+        console.log(instance);
+        console.log(instance instanceof proxy);
+        console.log(instance instanceof target);
+
+        // 抛异常
+        // var instance = new proxy("12", 24);
+    </script>
+</body>
+</html>

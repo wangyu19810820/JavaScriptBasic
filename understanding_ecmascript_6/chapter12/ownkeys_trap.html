@@ -1,0 +1,57 @@
+<!--
+    获取属性名集合ownKeys陷阱：ownKeys(target)
+    target：代理对象
+    返回值：对象属性的数组，数组内的元素必须是字符串或Symbol
+
+    返回值内的属性名，会影响对象的Object.getOwnPropertyNames(proxy),
+    Object.keys(proxy)，Object.getOwnPropertySymbols(proxy),
+    Object.assign()
+    由MDN的文档来看，此陷阱有较多限制，最好能返回实际值，否则易抛异常
+
+    反射获取自身属性名的集合，Reflect.ownKeys(target)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let proxy = new Proxy({}, {
+            ownKeys(target) {
+            //     // return ["abc"];
+
+                // 返回非字符的键，非下划线开头的字符键
+                return Reflect.ownKeys(target)
+                              .filter(key => {
+                                //   return false;
+                                  return typeof key !== "string" || key[0] !== "_"
+                              });
+            }
+        });
+
+        let nameSymbol = Symbol("name");
+        proxy.name = "proxy";
+        proxy._name = "private";
+        proxy[nameSymbol] = "symbol";
+
+        // 自身属性，不含Symbol
+        let names = Object.getOwnPropertyNames(proxy);
+        // 自身可枚举属性，不含Symbol
+        let keys = Object.keys(proxy);
+        // 自身Symbol属性
+        let symbols = Object.getOwnPropertySymbols(proxy);
+        // 赋值对象自身的属性到新的对象中
+        let newObj = Object.assign({}, proxy);
+
+        console.log(names);
+        console.log(keys);
+        console.log(symbols);
+        console.log(newObj);
+
+    </script>
+</body>
+</html>
