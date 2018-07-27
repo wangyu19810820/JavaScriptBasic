@@ -1,0 +1,61 @@
+<!--
+    es6的类不能直接继承代理对象，也不能修改原型
+    而es5的构造函数可以指定原型对象
+    所以将代理指定为es5构造函数的原型，
+    让es6的类继承自es5的构造函数，
+    就可以为类实例指定代理作为原型了
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // es5风格的构造函数，可用于es6的class的父类
+        function NoSuchProperty() {
+            // empty
+        }
+
+        let proxy = new Proxy({}, {
+            get(trapTarget, key, receiver) {
+                console.log(`get trap key:${key}`);
+                throw new ReferenceError(`${key} doesn't exist.`);
+            }
+        });
+        NoSuchProperty.prototype = proxy;
+
+        let thing = new NoSuchProperty();
+        // thing不存在name属性，触发了原型上的get陷阱，抛异常
+        // console.log(thing.name);
+
+        // es6的类不能直接继承代理对象，也不能修改原型
+        // es5的构造函数可以指定原型对象
+        // 所以将代理指定为es5构造函数的原型，让es6的类继承自es5的构造函数，就可以为类实例指定代理作为原型了
+        class Square extends NoSuchProperty {
+            constructor(length, width) {
+                super();
+                this.length = length;
+                this.width = width;
+            }
+            getArea() {
+                return this.length * this.width;
+            }
+        }
+        let square = new Square(2, 6);
+        // square存在length和width属性，不会触发原型上的get陷阱
+        console.log(square.length * square.width);
+        console.log(square.getArea());
+
+        // square不存在wdth属性（笔误，应为width），触发了原型上的get陷阱，抛异常
+        // console.log(square.length * square.wdth);
+
+        // square的原型的原型是代理
+        console.log(Object.getPrototypeOf(Object.getPrototypeOf(square)) === proxy);
+
+    </script>
+</body>
+</html>

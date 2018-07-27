@@ -1,0 +1,77 @@
+<!--
+    用代理，模拟原生数组
+    原生数组，在赋值新元素的时候，其索引超出了数组长度的时候，会自动修改length属性
+    在手动修改length属性的时候，会自动修剪数组，删除冗余数据
+    用代理的get陷阱，可以模拟此功能
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function toUint32(value) {
+            return Math.floor(Math.abs(Number(value))) % Math.pow(2, 32);
+        }
+        function isArrayIndex(key) {
+            // 比较标准，比较严谨的写法
+            // let numericKey = toUint32(key);
+            // return String(numericKey) == key && numericKey < (Math.pow(2, 32) - 1);
+
+            // 判断是否是数字，比较简单的写法
+            return !isNaN(key);
+        }
+        // console.log(isArrayIndex(1));
+        // console.log(isArrayIndex("1"));
+
+        function createMyArray(length = 0) {
+            return new Proxy({length}, {
+                set(target, key, value) {
+                    // 数组当前长度
+                    let currentLength = Reflect.get(target, "length");
+
+                    // 如果给超出当前长度的索引赋值，就自动增加length的值
+                    if (isArrayIndex(key)) {
+                        let numericKey = Number(key);
+                        if (numericKey >= currentLength) {
+                            Reflect.set(target, "length", numericKey + 1);
+                        }
+                    }
+
+                    // 如果指定length的值，自动裁剪数组
+                    if (key === "length") {
+                        if (value < currentLength) {
+                            for (let index = currentLength - 1; index >= value; index--) {
+                                Reflect.deleteProperty(target, index);
+                            }
+                        }
+                    }
+                    
+                    return Reflect.set(target, key, value);
+                }
+            })
+        }
+
+        let colors = createMyArray(3);
+        console.log(colors.length);
+        colors[0] = "red";
+        colors[1] = "green";
+        colors[2] = "blue";
+        console.log(colors.length);
+
+        // 指定的索引，超出了数组的长度
+        colors[3] = "black";
+        console.log(colors.length);
+        console.log(colors[3]);
+
+        // 重新指定数组的长度，数组自动修剪
+        colors.length = 2;
+        console.log(colors);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!--
+    将代理作为原型，有一些限制
+    如果某个操作只在对象本身上起作用，并不会触发原型上的陷阱
+    仅当某个操作会追踪对象的原型时，陷阱才会被触发
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+        let proxy = new Proxy(target, {
+            defineProperty(target, name, descriptor) {
+                return false;
+            }
+        });
+
+        // 代理的defineProperty发挥了作用，无法定义name属性
+        proxy.name = "proxy";
+        console.log(proxy.name);
+
+        // 将proxy作为obj的原型
+        let obj = Object.create(proxy);
+        // 在obj本身上定义name属性，没有触发原型上的defineProperty陷阱
+        obj.name = "obj";
+        console.log(obj.name);
+
+    </script>
+</body>
+</html>

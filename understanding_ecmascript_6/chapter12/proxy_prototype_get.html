@@ -1,0 +1,34 @@
+<!--
+    代理作为对象的原型
+    访问某个属性，如果对象本身有该属性，不会触发原型上的get陷阱
+    如果属性在原型上，或者不存在这个属性，会触发原型链上的get陷阱
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+        let obj = Object.create(new Proxy(target, {
+            get(target1, key, receiver) {
+                console.log(`get key:${key}`);
+                throw new ReferenceError(`${key} doesn't exist.`)
+            }
+        }));
+
+        // name定义在自身上，没有触发原型上的get陷阱
+        obj.name = "thing";
+        console.log(obj.name);
+
+        // sex没有被定义在自身上，触发了原型上get陷阱
+        // 抛异常
+        console.log(obj.sex);
+
+    </script>
+</body>
+</html>

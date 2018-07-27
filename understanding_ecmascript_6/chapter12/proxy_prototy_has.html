@@ -1,0 +1,33 @@
+<!--
+    代理作为对象的原型
+    in操作符判断某个属性是否存在于对象上，如果对象本身有该属性，不会触发原型上的has陷阱
+    如果对象不存在该属性，或者属性在原型上，才会触发原型上的has陷阱
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let target = {};
+        let obj = Object.create(new Proxy(target, {
+            has(trapTarget, key) {
+                console.log(`has key:{key}`);
+                return Reflect.has(trapTarget, key);
+            }
+        }));
+
+        // 触发了原型has陷阱
+        console.log("name" in obj);
+
+        // 没有触发原型上的has陷阱
+        obj.name = "obj";
+        console.log("name" in obj);
+
+    </script>
+</body>
+</html>
