@@ -1,0 +1,46 @@
+<!--
+    使用模块的默认导出，在导出导入的写法上，能更灵活简洁一些
+    默认导出可以看成是一个特殊的导出，可以没有名字。
+    和普通有名字的导出不冲突，可以共同使用
+
+    导出：
+    匿名形式：export default function(num1, num2) {...}
+    具名形式：function sum1(num1, num2) {...}
+            export default sum1;
+    重命名形式：function sum2(num1, num2) {...}
+              export {sum2 as default};
+
+    导入：
+    默认导出的名称，可以随意替换，无限制
+    单独使用：import add from "./default.js";
+    和普通导出共用：import add1, {color} from "./default1.js";
+    默认导出在前，普通导出在后
+    重命名：import {color, default as add2} from "./default2.js";
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        import add from "./default.js";
+        console.log(add(1, 5));
+    </script>
+
+    <script type="module">
+        import add1, {color} from "./default1.js";
+        console.log(add1(1, 5));
+    </script>
+
+    <script type="module">
+        import {color, default as add2} from "./default2.js";
+        console.log(add2(1, 5));
+    </script>
+
+
+</body>
+</html>
