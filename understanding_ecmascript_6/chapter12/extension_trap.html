@@ -5,7 +5,7 @@
     但是为了确保target和proxy的isExtensible是一致的，
     不能单独设置true或者false，需返回Reflect.isExtensible(target)的值
 
-    设置是否允许对象可扩展：preventExtensions(target)
+    让对象不可扩展：preventExtensions(target)
     target：被设置对象（代理的目标）
     返回值：true或者false
     但是为了确保target和proxy的isExtensible是一致的，
@@ -61,7 +61,7 @@
         console.log(Object.isExtensible(2));
         // 返回2
         console.log(Object.preventExtensions(2));
-
+   
         // 抛异常
         // console.log(Reflect.isExtensible(2));
         // console.log(Reflect.preventExtensions(2));

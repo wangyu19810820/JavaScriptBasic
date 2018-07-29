@@ -1,0 +1,25 @@
+<!--
+    导出的变量在原模块文件中是可修改的，
+    但是在使用模块中是只读的
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        import {name, setName} from "./readonly.js";
+        console.log(name);
+        setName("Greg");
+        console.log(name);
+
+        // 抛异常
+        name = "Nicholas";
+        console.log(name);
+    </script>
+</body>
+</html>

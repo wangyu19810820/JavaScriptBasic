@@ -1,0 +1,19 @@
+<!--
+    js模块导出时重新命名：export {add as add1};
+    引入模块再次重新命名：import {add1 as add2} from "./rename.js";
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        import {add1 as add2} from "./rename.js";
+        console.log(add2(1, 3));
+    </script>
+</body>
+</html>
