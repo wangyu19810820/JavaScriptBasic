@@ -1,0 +1,22 @@
+<!--
+    module.js中导出了变量
+    rebind.js中重新导出了变量，有的改名
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="module">
+        import * as example from "./rebind.js";
+        console.log(example.add(1, 2));
+        console.log(example.color);
+    </script>
+
+</head>
+<body>
+    aa
+</body>
+</html>
