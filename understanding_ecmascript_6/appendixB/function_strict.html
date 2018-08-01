@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>  
+        // 函数用了es6之后的语法特性后，不能再在函数内定义严格模式
+
+        "use strict";
+        // 抛异常
+        // a = "a";
+
+        function fun1(a) {
+            "use strict";
+        }
+
+        function fun2(a = "a") {
+            
+        }
+        // 语法错误
+        // function fun3(a = "a") {
+        //     "use strict";
+        // }
+
+        function fun4({a, b}) {
+
+        }
+
+        // 语法错误
+        // function fun5({a, b}) {
+        //     "use strict";
+        // }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

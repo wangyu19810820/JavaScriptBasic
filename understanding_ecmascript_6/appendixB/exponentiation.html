@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 求幂运算符
+        console.log(5 ** 2)         // 25
+
+        // 求幂运算的优先级要高于普通算数运输符
+        console.log(2 * 5 ** 2);    // 50
+
+        // 左侧不能有除了++和--的其他一元运算符
+        // 语法错误
+        // console.log(-5 ** 2);
+        // 可行
+        console.log((-5) ** 2);     // 25
+        console.log(-(5 ** 2));     // -25
+
+        let num1 = 2;
+        console.log(++num1 ** 2);   // 9
+        console.log(num1);          // 3
+
+        let num2 = 2;
+        console.log(num2++ ** 2);   // 4
+        console.log(num2);          // 3
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

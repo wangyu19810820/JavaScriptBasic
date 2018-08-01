@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 校验某个值是否是整数
+        console.log(Number.isInteger(25));      // true
+        console.log(Number.isInteger(25.0));    // true
+        console.log(Number.isInteger(25.1));    // false
+        console.log(Number.isInteger("25"));    // false
+
+        // 是否是“安全”的整数，好像就是“溢出”这个概念
+        let num1 = Number.MAX_SAFE_INTEGER;
+        let num2 = num1 + 1;
+        console.log(Number.isSafeInteger(num1));
+        console.log(Number.isSafeInteger(num2));
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

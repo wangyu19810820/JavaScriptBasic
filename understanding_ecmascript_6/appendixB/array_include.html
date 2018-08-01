@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        let arr = [1, 2, 3, NaN];
+        // 数组arr中是否包含数字1
+        console.log(arr.includes(1));
+
+        // 数组arr中是否包含数字0
+        console.log(arr.includes(0));
+
+        // 数组arr中，从索引1之后，是否包含数字1
+        console.log(arr.includes(1, 1));
+
+        // includes和indexOf === -1，可以互相转换，
+        // 但是NaN有点特殊，indexOf === -1，includes确返回true
+        console.log(arr.includes(0));
+        console.log(arr.indexOf(0));       
+        console.log(arr.includes(NaN));
+        console.log(arr.indexOf(NaN));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

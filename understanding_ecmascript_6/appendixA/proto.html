@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // __proto__做为Object.getPrototypeOf和Object.setPrototypeOf等价
+        // 已经使用很广泛，在es6中被标准化，但是仍然不推荐使用
+        // __proto__被定义为一个访问器属性，间接调用getPrototypeOf和setPrototypeOf
+        // 普通的属性，其计算形式和非计算形式是等价的
+        // 而__proto__，其计算形式和非计算形式稍有区别，所以不推荐使用
+        let person = {
+            greet(){
+                console.log("hello");
+            }
+        }
+        let dog = {
+            greet(){
+                console.log("woof");
+            }
+        }
+
+        let friend1 = {__proto__:person, name:"jim"};
+        friend1.greet();
+        friend1.__proto__ = dog;
+        friend1.greet();
+        friend1["__proto__"] = person;
+        friend1.greet();
+        console.log(friend1.name);
+
+        let friend2 = {["__proto__"]:person, ["name"]:"jim"};
+        console.log(friend2["name"]);
+        console.log(friend2["__proto__"]);
+        console.log(friend2.__proto__);
+        // 抛异常
+        friend2.greet();
+    </script>
+</body>
+</html>
